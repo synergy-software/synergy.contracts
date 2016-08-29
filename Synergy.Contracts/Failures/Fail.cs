@@ -25,6 +25,7 @@ namespace Synergy.Contracts
     /// (simply: when we call method of another class) we may violate the contract and receive the exception, but this is what it is for.
     /// </para>
     /// </summary>
+    [DebuggerStepThrough]
     public static partial class Fail
     {
         /// <summary>

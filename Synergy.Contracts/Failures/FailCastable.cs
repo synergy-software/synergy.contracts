@@ -1,85 +1,116 @@
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace Synergy.Contracts
 {
+    //TODO: Add [AssertionCondition] below
     public static partial class Fail
     {
         private const string NotCastableMessage = "Expected object of type '{0}' but was '{1}'";
 
-        //public static void FailIfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
+        //TODO: public static void FailIfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
 
         /// <summary>
-        /// Rzuca wyj¹tek gdy testowany obiekt nie daje siê zrzutowaæ na wymagany typ.
-        /// Do tej metody mo¿na przekazaæ <see langword="null" /> - wtedy nie jest sprawdzane rzutowanie.
+        /// Throws exception when specified value is not castable to the specified type. It also returns the casted object or <see langword="null"/>.
+        /// <para>REMARKS: You can pass <see langword="null"/> to this method and will NOT throw the exception.</para>
         /// </summary>
+        /// <typeparam name="T">The expected type.</typeparam>
+        /// <param name="value">Value to check if it can be casted to specified type.</param>
+        /// <returns>The casted object (or <see langword="null"/>).</returns>
         [DebuggerStepThrough]
         [ContractAnnotation("value: null => null; value: notnull => notnull")]
         [CanBeNull]
         [AssertionMethod]
         public static T AsOrFail<T>([CanBeNull] this object value)
         {
-            IfNotCastable<T>(value, NotCastableMessage, typeof(T), value);
+            Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
 
-            return (T)value;
-        }
-
-        /// <summary>
-        /// Rzuca wyj¹tek gdy testowany obiekt nie daje siê zrzutowaæ na wymagany typ.
-        /// Do tej metody NIE mo¿na przekazaæ <see langword="null" />.
-        /// </summary>
-        [DebuggerStepThrough]
-        [NotNull]
-        [AssertionMethod]
-        public static T CastOrFail<T>([CanBeNull] this object value)
-        {
-            IfNull(value, NotCastableMessage, typeof (T), "null");
-            IfNotCastable<T>(value, NotCastableMessage, typeof(T), value);
             return (T) value;
         }
 
         /// <summary>
-        /// Rzuca wyj¹tek gdy testowany obiekt nie daje siê zrzutowaæ na wymagany typ.
-        /// Do tej metody mo¿na przekazaæ <see langword="null" /> - wtedy nie jest sprawdzane rzutowanie.
+        /// Throws exception when specified value is not castable to the specified type. It also returns the casted object.
+        /// <para>REMARKS: You CANNOT pass <see langword="null"/> to this method as it will throw the exception.</para>
         /// </summary>
+        /// <typeparam name="T">The expected type.</typeparam>
+        /// <param name="value">Value to check if it can be casted to specified type.</param>
+        /// <returns>The casted object. This method will NEVER return <see langword="null"/>.</returns>
+        [DebuggerStepThrough]
+        [ContractAnnotation("value: null => halt; value: notnull => notnull")]
+        [NotNull]
+        [AssertionMethod]
+        public static T CastOrFail<T>([CanBeNull] this object value)
+        {
+            Fail.IfNull(value, Fail.NotCastableMessage, typeof(T), "null");
+            Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
+            return (T) value;
+        }
+
+        /// <summary>
+        /// Throws exception when specified value is not castable to the specified type.
+        /// <para>REMARKS: You can pass <see langword="null"/> to this method and will NOT throw the exception.</para>
+        /// </summary>
+        /// <param name="value">Value to check if it can be casted to specified type.</param>
+        /// <param name="expectedType">The expected type.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [AssertionMethod]
         public static void IfNotCastable([CanBeNull] object value, [NotNull] Type expectedType, [NotNull] string message, [NotNull] params object[] args)
         {
-            RequiresMessage(message, args);
+            Fail.RequiresType(expectedType);
+            Fail.RequiresMessage(message, args);
 
             if (value == null)
                 return;
 
             if (expectedType.IsInstanceOfType(value) == false)
-                throw Because(message, args);
+                throw Fail.Because(message, args);
         }
 
         /// <summary>
-        /// Sprawdza czy dany obiekt jest danego typu (czy jest rzutowalny).
-        /// Jeœli nie jest rzucany jest Exception o podanym komunikacie.
-        /// Do tej metody mo¿na przekazaæ <see langword="null" /> - wtedy nie jest sprawdzane rzutowanie.
+        /// Throws exception when specified value is not castable to the specified type.
+        /// <para>REMARKS: You can pass <see langword="null"/> to this method and will NOT throw the exception.</para>
         /// </summary>
-        /// <typeparam name="T">Oczekiwany typ obiektu</typeparam>
-        /// <param name="toCheck">Obiekt do sprawdzenia</param>
-        /// <param name="message">Komunikat</param>
-        /// <param name="args">Argumenty komunikatu</param>
+        /// <typeparam name="T">The expected Type.</typeparam>
+        /// <param name="value">Value to check if it can be casted to specified type.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [AssertionMethod]
-        public static void IfNotCastable<T>([CanBeNull] object toCheck, [NotNull] string message, [NotNull] params object[] args)
+        public static void IfNotCastable<T>([CanBeNull] object value, [NotNull] string message, [NotNull] params object[] args)
         {
-            IfNotCastable(toCheck, typeof (T), message, args);
+            Fail.IfNotCastable(value, typeof(T), message, args);
         }
 
         /// <summary>
-        /// Sprawdza czy dany obiekt jest danego typu (czy jest rzutowalny).
-        /// Jeœli nie jest rzucany jest Exception o podanym komunikacie.
-        /// Do tej metody NIE mo¿na przekazaæ <see langword="null" />.
+        /// Throws exception when specified value is not castable to the specified type.
+        /// <para>REMARKS: You CANNOT pass <see langword="null"/> to this method as it will throw the exception.</para>
         /// </summary>
+        /// <typeparam name="T">The expected Type.</typeparam>
+        /// <param name="value">Value to check if it can be casted to specified type.</param>
         [DebuggerStepThrough]
+        [ContractAnnotation("value: null => halt")]
+        [AssertionMethod]
+        public static void IfNullOrNotCastable<T>([CanBeNull] object value)
+        {
+            Fail.IfNullOrNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
+        }
+
+        /// <summary>
+        /// Throws exception when specified value is not castable to the specified type.
+        /// <para>REMARKS: You CANNOT pass <see langword="null"/> to this method as it will throw the exception.</para>
+        /// </summary>
+        /// <typeparam name="T">The expected Type.</typeparam>
+        /// <param name="value">Value to check if it can be casted to specified type.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        [DebuggerStepThrough]
+        [ContractAnnotation("value: null => halt")]
         [StringFormatMethod("message")]
         [AssertionMethod]
         public static void IfNullOrNotCastable<T>(
@@ -87,40 +118,17 @@ namespace Synergy.Contracts
             [NotNull] string message,
             [NotNull] params object[] args)
         {
-            //
-            // WARN: Powy¿ej na argumencie (value) specjalnie jest [CanBeNull] - bez tego R# zg³asza b³êdy w miejscach, 
-            //       w których chcemy przetestowaæ brak nullowatoœci wbrew deklarowanemu kontraktowi 
-            //
+            Fail.RequiresMessage(message, args);
 
-            RequiresMessage(message, args);
-
-            IfNull(value, message, args);
-            IfNotCastable(value, typeof (T), message, args);
+            Fail.IfNull(value, message, args);
+            Fail.IfNotCastable(value, typeof(T), message, args);
         }
 
-        /// <summary>
-        /// Sprawdza czy dany obiekt jest danego typu (czy jest rzutowalny).
-        /// Jeœli nie jest rzucany jest Exception o podanym komunikacie.
-        /// Do tej metody NIE mo¿na przekazaæ <see langword="null" />.
-        /// </summary>
-        [Obsolete("Use Fail.IfNullOrNotCastable<T>() overload with message")]
-        [DebuggerStepThrough]
-        [AssertionMethod]
-        public static void IfNullOrNotCastable<T>([CanBeNull] object value)
+        [ExcludeFromCodeCoverage]
+        private static void RequiresType([NotNull] Type expectedType)
         {
-            //
-            // WARN: Powy¿ej na argumencie (value) specjalnie jest [CanBeNull] - bez tego R# zg³asza b³êdy w miejscach, 
-            //       w których chcemy przetestowaæ brak nullowatoœci wbrew deklarowanemu kontraktowi 
-            //
-
-            IfNull(value, NotCastableMessage, typeof (T), "null");
-            IfNotCastable(value, typeof (T));
-        }
-
-        [DebuggerStepThrough]
-        private static void IfNotCastable([CanBeNull] object value, [NotNull] Type expectedType)
-        {
-            IfNotCastable(value, expectedType, NotCastableMessage, expectedType, value);
+            if (expectedType == null)
+                throw new ArgumentNullException(nameof(expectedType));
         }
     }
 }

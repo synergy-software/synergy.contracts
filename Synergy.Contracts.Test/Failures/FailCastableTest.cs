@@ -36,10 +36,10 @@ namespace Synergy.Contracts.Test.Failures
         public void IfNotCastable()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotCastable<IQueryable>(toCheck: new object(), message: "nie zrzutuje")
+                () => Fail.IfNotCastable<IQueryable>(new object(), message: "nie zrzutuje")
                 );
 
-            Fail.IfNotCastable<IList<string>>(toCheck: new List<string>(), message: "zrzutuje");
+            Fail.IfNotCastable<IList<string>>(new List<string>(), message: "zrzutuje");
         }
 
         [Test]
