@@ -95,7 +95,7 @@ namespace Synergy.Contracts
 
 
         /// <summary>
-        ///     Sprawdza czy przekazano argument 'argumentName'.
+        /// Checks if argument name was provided.
         /// </summary>
         [ExcludeFromCodeCoverage]
         private static void RequiresArgumentName([NotNull] string argumentName)
