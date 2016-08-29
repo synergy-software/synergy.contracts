@@ -8,8 +8,10 @@ namespace Synergy.Contracts
     public static partial class Fail
     {
         /// <summary>
-        ///     Rzuca wyj¹tek gdy argument przekazany do metody jest <see langword="null" /> lub "" (pusty string).
+        /// Throws exception if the specified argument is <see langword="null"/> or empty string ("").
         /// </summary>
+        /// <param name="argumentValue">Value of the argument to check against <see langword="null"/> or emptiness.</param>
+        /// <param name="argumentName">Name of the argument passed to your method.</param>
         [DebuggerStepThrough]
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
@@ -17,17 +19,20 @@ namespace Synergy.Contracts
             [CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue,
             [NotNull] string argumentName)
         {
-            RequiresArgumentName(argumentName: argumentName);
+            Fail.RequiresArgumentName(argumentName);
 
-            IfArgumentNull(argumentValue: argumentValue, argumentName: argumentName);
+            Fail.IfArgumentNull(argumentValue, argumentName);
 
             if (argumentValue.Length == 0)
-                throw Because("Argument '{0}' was empty.", argumentName);
+                throw Fail.Because("Argument '{0}' was empty.", argumentName);
         }
 
         /// <summary>
-        /// Rzuca wyj¹tek gdy testowany parametr jest <see langword="null" /> lub "" (pusty string).
+        /// Throws exception if the specified value is <see langword="null"/> or empty string ("").
         /// </summary>
+        /// <param name="value">Value to check against <see langword="null"/> or emptiness.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
@@ -37,17 +42,19 @@ namespace Synergy.Contracts
             [NotNull] string message,
             [NotNull] params object[] args)
         {
-            RequiresMessage(message, args);
+            Fail.RequiresMessage(message, args);
 
-            IfNull(value, message, args);
+            Fail.IfNull(value, message, args);
 
             if (value.Length == 0)
-                throw Because(message, args);
+                throw Fail.Because(message, args);
         }
 
         /// <summary>
-        ///     Rzuca wyj¹tek gdy argument przekazany do metody jest <see langword="null" /> lub sk³ada siê tylko z bia³ych znaków.
+        ///  Throws exception if the specified argument value is <see langword="null"/> or white space.
         /// </summary>
+        /// <param name="argumentValue">Value of the argument to check</param>
+        /// <param name="argumentName">Name of the argument passed to your method.</param>
         [DebuggerStepThrough]
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
@@ -55,18 +62,20 @@ namespace Synergy.Contracts
             [CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue,
             [NotNull] string argumentName)
         {
-            RequiresArgumentName(argumentName: argumentName);
+            Fail.RequiresArgumentName(argumentName);
 
-            IfArgumentNull(argumentValue: argumentValue, argumentName: argumentName);
+            Fail.IfArgumentNull( argumentValue,  argumentName);
 
             if (string.IsNullOrWhiteSpace(value: argumentValue))
-                throw Because("Argument '{0}' was empty.", argumentName);
+                throw Fail.Because("Argument '{0}' was empty.", argumentName);
         }
 
         /// <summary>
-        /// Rzuca wyj¹tek gdy testowany parametr jest <see langword="null" /> 
-        /// lub jest tekstem zawieraj¹cym jedynie bia³e znaki.
+        /// Throws exception if the specified value is <see langword="null"/> or white space.
         /// </summary>
+        /// <param name="value">Value to check</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
@@ -76,15 +85,14 @@ namespace Synergy.Contracts
             [NotNull] string message,
             [NotNull] params object[] args)
         {
-            RequiresMessage(message, args);
+            Fail.RequiresMessage(message, args);
 
-            IfNull(value, message, args);
+            Fail.IfNull(value, message, args);
 
-            if (String.IsNullOrWhiteSpace(value))
-                throw Because(message, args);
+            if (string.IsNullOrWhiteSpace(value))
+                throw Fail.Because(message, args);
         }
 
-        //public static void FailIfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
 
         /// <summary>
         ///     Sprawdza czy przekazano argument 'argumentName'.
@@ -92,7 +100,7 @@ namespace Synergy.Contracts
         [ExcludeFromCodeCoverage]
         private static void RequiresArgumentName([NotNull] string argumentName)
         {
-            if (string.IsNullOrWhiteSpace(value: argumentName))
+            if (string.IsNullOrWhiteSpace(argumentName))
                 throw new ArgumentNullException(nameof(argumentName));
         }
     }

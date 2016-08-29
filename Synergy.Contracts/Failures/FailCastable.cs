@@ -8,6 +8,8 @@ namespace Synergy.Contracts
     {
         private const string NotCastableMessage = "Expected object of type '{0}' but was '{1}'";
 
+        //public static void FailIfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
+
         /// <summary>
         /// Rzuca wyj¹tek gdy testowany obiekt nie daje siê zrzutowaæ na wymagany typ.
         /// Do tej metody mo¿na przekazaæ <see langword="null" /> - wtedy nie jest sprawdzane rzutowanie.
