@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -23,13 +23,13 @@ namespace Synergy.Contracts.Test.Failures
         public void IfCollectionContainsNull()
         {
             var zNullem = new[] {new object(), null};
-            IEnumerable<string> pe³na = Enumerable.Repeat("element", 2);
+            IEnumerable<string> peÅ‚na = Enumerable.Repeat("element", 2);
 
             Assert.Throws<DesignByContractViolationException>(
                 () => Fail.IfCollectionContainsNull(zNullem, "zNullem")
             );
 
-            Fail.IfCollectionContainsNull(pe³na, "pe³na");
+            Fail.IfCollectionContainsNull(peÅ‚na, "peÅ‚na");
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Synergy.Contracts.Test.Failures
         {
             IEnumerable<object> pusta = Enumerable.Empty<object>();
             IEnumerable<object> nullowata = null;
-            IEnumerable<string> pe³na = Enumerable.Repeat("element", 2);
+            IEnumerable<string> peÅ‚na = Enumerable.Repeat("element", 2);
 
             Assert.Throws<DesignByContractViolationException>(
                 () => Fail.IfCollectionNullOrEmpty(pusta, "collection")
@@ -47,24 +47,24 @@ namespace Synergy.Contracts.Test.Failures
                 () => Fail.IfCollectionNullOrEmpty(nullowata, "collection")
             );
 
-            Fail.IfCollectionNullOrEmpty(pe³na, "collection");
+            Fail.IfCollectionNullOrEmpty(peÅ‚na, "collection");
         }
 
         [Test]
         public void IfCollectionsAreNotEquivalent()
         {
             var kolekcja1 = new[] {"ala", "olo"};
-            var kolekcja1InnaKolejnoœæ = new[] {"olo", "ala"};
+            var kolekcja1InnaKolejnoÅ›Ä‡ = new[] {"olo", "ala"};
             var kolekcja2 = new[] {"ala", "inna"};
             var pusta1 = new string[0];
             var pusta2 = new List<string>();
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionsAreNotEquivalent(kolekcja1, kolekcja2, "s¹ ró¿ne")
+                () => Fail.IfCollectionsAreNotEquivalent(kolekcja1, kolekcja2, "sÄ… rÃ³Å¼ne")
             );
 
-            Fail.IfCollectionsAreNotEquivalent(kolekcja1, kolekcja1InnaKolejnoœæ, "s¹ ró¿ne");
-            Fail.IfCollectionsAreNotEquivalent(pusta1, pusta2, "s¹ ró¿ne");
+            Fail.IfCollectionsAreNotEquivalent(kolekcja1, kolekcja1InnaKolejnoÅ›Ä‡, "sÄ… rÃ³Å¼ne");
+            Fail.IfCollectionsAreNotEquivalent(pusta1, pusta2, "sÄ… rÃ³Å¼ne");
         }
     }
 }
