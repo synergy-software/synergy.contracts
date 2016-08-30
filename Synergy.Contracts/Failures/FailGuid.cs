@@ -44,7 +44,7 @@ namespace Synergy.Contracts
         {
             Fail.RequiresArgumentName(argumentName);
 
-            Fail.IfEqual(Guid.Empty, value, "Argument '{0}' was an empty Guid.", argumentName);
+            Fail.IfEqual(Guid.Empty, value, "Argument '{0}' is an empty Guid.", argumentName);
         }
     }
 }

@@ -8,14 +8,26 @@ namespace Synergy.Contracts.Test.Failures
     public class FailCastableTest
     {
         [Test]
-        public void CastOrFail()
+        public void AsOrFail()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => new object().AsOrFail<string>()
+            // ARRANGE
+            object someObjectButSurelyNotString = new object();
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => someObjectButSurelyNotString.AsOrFail<string>()
                 );
 
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Expected object of type 'System.String' but was 'System.Object'"));
+        }
+
+        [Test]
+        public void AsOrFailSuccess()
+        {
+
             "text".AsOrFail<string>();
-            ((object) null).AsOrFail<string>();
+            ((object)null).AsOrFail<string>();
         }
 
         [Test]

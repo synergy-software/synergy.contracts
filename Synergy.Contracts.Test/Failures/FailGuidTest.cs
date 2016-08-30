@@ -10,10 +10,25 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfArgumentEmpty()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentEmpty(Guid.Empty, "argumentName"));
+            // ARRANGE
+            var someEmptyGuid = Guid.Empty;
 
-            Fail.IfArgumentEmpty(Guid.NewGuid(), "argumentName");
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfArgumentEmpty(someEmptyGuid, nameof(someEmptyGuid)));
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Argument 'someEmptyGuid' is an empty Guid."));
+        }
+
+        [Test]
+        public void IfArgumentEmptySuccess()
+        {
+            // ARRANGE
+            var someGuid = Guid.NewGuid();
+
+            // ACT
+            Fail.IfArgumentEmpty(someGuid, nameof(someGuid));
         }
 
         [Test]
@@ -28,11 +43,12 @@ namespace Synergy.Contracts.Test.Failures
 
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 () => contractorRepository.FindContractorByGuid(id: id));
 
             // ASSERT
             Assert.That(exception, Is.Not.Null);
-            Assert.That(exception.Message, Is.EqualTo($"Argument '{nameof(id)}' was an empty Guid."));
+            Assert.That(exception.Message, Is.EqualTo($"Argument '{nameof(id)}' is an empty Guid."));
         }
 
         [Test]
