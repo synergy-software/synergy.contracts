@@ -13,10 +13,10 @@ namespace Synergy.Contracts.Test.Failures
             var kolekcja = new[] {new object(), "element"};
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionContains(kolekcja, e => object.Equals(objA: e, objB: "ala"), "ta kolekcja ma 'ala'")
+                () => Fail.IfCollectionContains(kolekcja, e => object.Equals(e,  "ala"), "ta kolekcja ma 'ala'")
             );
 
-            Fail.IfCollectionContains(kolekcja, e => object.Equals(objA: e, objB: "dziwny"), "ta kolekcja NIE ma elementu dziwnego");
+            Fail.IfCollectionContains(kolekcja, e => object.Equals(e, "dziwny"), "ta kolekcja NIE ma elementu dziwnego");
         }
 
         [Test]
@@ -60,11 +60,11 @@ namespace Synergy.Contracts.Test.Failures
             var pusta2 = new List<string>();
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionsAreNotEquivalent(collection1: kolekcja1, collection2: kolekcja2, "s¹ ró¿ne")
+                () => Fail.IfCollectionsAreNotEquivalent(kolekcja1, kolekcja2, "s¹ ró¿ne")
             );
 
-            Fail.IfCollectionsAreNotEquivalent(collection1: kolekcja1, collection2: kolekcja1InnaKolejnoœæ, "s¹ ró¿ne");
-            Fail.IfCollectionsAreNotEquivalent(collection1: pusta1, collection2: pusta2, "s¹ ró¿ne");
+            Fail.IfCollectionsAreNotEquivalent(kolekcja1, kolekcja1InnaKolejnoœæ, "s¹ ró¿ne");
+            Fail.IfCollectionsAreNotEquivalent(pusta1, pusta2, "s¹ ró¿ne");
         }
     }
 }
