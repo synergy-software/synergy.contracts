@@ -38,7 +38,7 @@ namespace Synergy.Contracts.Samples.Domain
                 case ContractorType.Person:
                     return this.FirstName + " " + this.LastName;
                 default:
-                    throw Fail.Because("Unsupported ContractorType: {0}. Maybe someone extended enum and forgot about this logic?", this.Type);
+                    throw Fail.BecauseEnumOutOfRange(this.Type);
             }
         }
     }

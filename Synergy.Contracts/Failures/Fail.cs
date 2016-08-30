@@ -34,23 +34,6 @@ namespace Synergy.Contracts
         /// <param name="message">Message that will be passed to the <see cref="DesignByContractViolationException"/>.</param>
         /// <param name="args">Arguments that will be passed to the <see cref="DesignByContractViolationException"/>.</param>
         /// <returns>The exception to throw when contract is violated</returns>
-        /// <example>
-        /// <code>
-        ///  [CanBeNull, Pure]
-        ///  public string GetName()
-        ///  {
-        ///      switch (this.Type)
-        ///      {
-        ///          case ContractorType.Company:
-        ///              return this.CompanyName;
-        ///          case ContractorType.Person:
-        ///              return this.FirstName + " " + this.LastName;
-        ///          default:
-        ///              throw Fail.Because("Unsupported ContractorType: {0}. Maybe someone extended enum and forgot about this logic?", this.Type);
-        ///      }
-        ///  }
-        /// </code>
-        /// </example>
         [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [NotNull, Pure]
