@@ -6,14 +6,6 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailTest
     {
-        //[Test]
-        //public void Always()
-        //{
-        //    Assert.Throws<DesignByContractViolationException>(
-        //        () => Fail.Always("Always")
-        //        );
-        //}
-
         [Test]
         public void Because()
         {
@@ -21,7 +13,8 @@ namespace Synergy.Contracts.Test.Failures
             DesignByContractViolationException exception = Fail.Because("Always");
 
             // ASSERT
-            Assert.NotNull(anObject: exception);
+            Assert.That(exception, Is.Not.Null);
+            Assert.That(exception.Message, Is.EqualTo("Always"));
         }
 
         [Test]

@@ -14,7 +14,7 @@ namespace Synergy.Contracts.Test.Failures
                 () => new object().AsOrFail<string>()
                 );
 
-            "tekst".AsOrFail<string>();
+            "text".AsOrFail<string>();
             ((object) null).AsOrFail<string>();
         }
 
@@ -36,30 +36,30 @@ namespace Synergy.Contracts.Test.Failures
         public void IfNotCastable()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotCastable<IQueryable>(new object(), message: "nie zrzutuje")
+                () => Fail.IfNotCastable<IQueryable>(new object(), "wrong type 1")
                 );
 
-            Fail.IfNotCastable<IList<string>>(new List<string>(), message: "zrzutuje");
+            Fail.IfNotCastable<IList<string>>(new List<string>(), "wrong type 2");
         }
 
         [Test]
         public void IfNotCastableWithType()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotCastable(value: new object(), expectedType: typeof (IQueryable), message: "nie zrzutuje")
+                () => Fail.IfNotCastable(new object(), typeof (IQueryable), "wrong type 1")
                 );
 
-            Fail.IfNotCastable(value: new List<string>(), expectedType: typeof (IList<string>), message: "zrzutuje");
+            Fail.IfNotCastable(new List<string>(),typeof (IList<string>), "wrong type 2");
         }
 
         [Test]
         public void IfNullOrNotCastable()
         {
-            Fail.IfNullOrNotCastable<IList<string>>(value: new List<string>());
-            Fail.IfNullOrNotCastable<IList<string>>(value: new List<string>(), message: "wszystko ok");
+            Fail.IfNullOrNotCastable<IList<string>>(new List<string>());
+            Fail.IfNullOrNotCastable<IList<string>>(new List<string>(), "wrong type 1");
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNullOrNotCastable<IQueryable>(value: new object())
+                () => Fail.IfNullOrNotCastable<IQueryable>(new object())
                 );
         }
     }

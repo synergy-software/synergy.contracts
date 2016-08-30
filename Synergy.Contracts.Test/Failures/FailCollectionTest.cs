@@ -10,13 +10,13 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfCollectionContains()
         {
-            var kolekcja = new[] {new object(), "ala"};
+            var kolekcja = new[] {new object(), "element"};
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionContains(collection: kolekcja, func: e => Equals(objA: e, objB: "ala"), message: "ta kolekcja ma 'ala'")
-                );
+                () => Fail.IfCollectionContains(kolekcja, e => object.Equals(objA: e, objB: "ala"), "ta kolekcja ma 'ala'")
+            );
 
-            Fail.IfCollectionContains(collection: kolekcja, func: e => Equals(objA: e, objB: "dziwny"), message: "ta kolekcja NIE ma elementu dziwnego");
+            Fail.IfCollectionContains(kolekcja, e => object.Equals(objA: e, objB: "dziwny"), "ta kolekcja NIE ma elementu dziwnego");
         }
 
         [Test]
@@ -26,10 +26,10 @@ namespace Synergy.Contracts.Test.Failures
             IEnumerable<string> pe³na = Enumerable.Repeat("element", 2);
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionContainsNull(collection: zNullem, collectionName: "zNullem")
-                );
+                () => Fail.IfCollectionContainsNull(zNullem, "zNullem")
+            );
 
-            Fail.IfCollectionContainsNull(collection: pe³na, collectionName: "pe³na");
+            Fail.IfCollectionContainsNull(pe³na, "pe³na");
         }
 
         [Test]
@@ -40,14 +40,14 @@ namespace Synergy.Contracts.Test.Failures
             IEnumerable<string> pe³na = Enumerable.Repeat("element", 2);
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionNullOrEmpty(collection: pusta, collectionName: "collection")
-                );
+                () => Fail.IfCollectionNullOrEmpty(pusta, "collection")
+            );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionNullOrEmpty(collection: nullowata, collectionName: "collection")
-                );
+                () => Fail.IfCollectionNullOrEmpty(nullowata, "collection")
+            );
 
-            Fail.IfCollectionNullOrEmpty(collection: pe³na, collectionName: "collection");
+            Fail.IfCollectionNullOrEmpty(pe³na, "collection");
         }
 
         [Test]
@@ -60,11 +60,11 @@ namespace Synergy.Contracts.Test.Failures
             var pusta2 = new List<string>();
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionsAreNotEquivalent(collection1: kolekcja1, collection2: kolekcja2, message: "s¹ ró¿ne")
-                );
+                () => Fail.IfCollectionsAreNotEquivalent(collection1: kolekcja1, collection2: kolekcja2, "s¹ ró¿ne")
+            );
 
-            Fail.IfCollectionsAreNotEquivalent(collection1: kolekcja1, collection2: kolekcja1InnaKolejnoœæ, message: "s¹ ró¿ne");
-            Fail.IfCollectionsAreNotEquivalent(collection1: pusta1, collection2: pusta2, message: "s¹ ró¿ne");
+            Fail.IfCollectionsAreNotEquivalent(collection1: kolekcja1, collection2: kolekcja1InnaKolejnoœæ, "s¹ ró¿ne");
+            Fail.IfCollectionsAreNotEquivalent(collection1: pusta1, collection2: pusta2, "s¹ ró¿ne");
         }
     }
 }

@@ -10,13 +10,13 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfNotMidnight()
         {
-            DateTime teraz = DateTime.Today.AddSeconds(1000);
+            DateTime now = DateTime.Today.AddSeconds(1000);
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotMidnight(value: teraz, message: "ojtam ojtam")
+                () => Fail.IfNotMidnight( now, "ojtam ojtam")
                 );
 
-            Fail.IfNotMidnight(value: DateTime.Today, message: "ojtam ojtam");
+            Fail.IfNotMidnight( DateTime.Today, "ojtam ojtam");
             Fail.IfNotMidnight(null, "ojtam ojtam");
         }
 
