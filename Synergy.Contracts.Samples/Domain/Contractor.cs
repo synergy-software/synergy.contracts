@@ -1,19 +1,34 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Synergy.Contracts.Samples.Domain
 {
     public class Contractor
     {
+        public static Contractor CreateCompany(string name)
+        {
+            return new Contractor
+            {
+                Id = Guid.NewGuid(),
+                Type = ContractorType.Company,
+                CompanyName = name
+            };
+        }
+
         public Guid Id { get; set; }
 
         public ContractorType Type { get; set; }
 
+        [CanBeNull]
         public string CompanyName { get; set; }
 
+        [CanBeNull]
         public string LastName { get; set; }
 
+        [CanBeNull]
         public string FirstName { get; set; }
 
+        [CanBeNull, Pure]
         public string GetName()
         {
             switch (this.Type)

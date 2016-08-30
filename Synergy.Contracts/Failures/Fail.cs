@@ -36,6 +36,7 @@ namespace Synergy.Contracts
         /// <returns>The exception to throw when contract is violated</returns>
         /// <example>
         /// <code>
+        ///  [CanBeNull, Pure]
         ///  public string GetName()
         ///  {
         ///      switch (this.Type)
