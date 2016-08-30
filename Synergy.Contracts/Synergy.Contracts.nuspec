@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Synergy.Contracts</id>
+    <version>$version$</version>
+    <title>Design by contract programming support</title>
+    <authors>Synergy Marcin Celej</authors>
+    <owners>Synergy Marcin Celej</owners>
+    <licenseUrl>https://github.com/MarcinCelej/synergy.contracts/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/MarcinCelej/synergy.contracts</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Design by contract programming support</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Design-By-Contract Precondition Contract Code-Contract Resharper Annotations R# jetbrains.annotations design contract</tags>
+  </metadata>
+</package>
