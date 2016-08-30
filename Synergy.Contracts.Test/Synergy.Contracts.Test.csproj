@@ -50,6 +50,7 @@
     <Compile Include="Failures\FailEqualityTest.cs" />
     <Compile Include="Failures\FailGuidTest.cs" />
     <Compile Include="Failures\FailNullabilityTest.cs" />
+    <Compile Include="Failures\FailEnumTest.cs" />
     <Compile Include="Failures\FailTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

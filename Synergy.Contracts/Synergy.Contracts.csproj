@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Failures\DesignByContractViolationException.cs" />
     <Compile Include="Failures\Fail.cs" />
+    <Compile Include="Failures\FailEnum.cs" />
     <Compile Include="Failures\FailString.cs" />
     <Compile Include="Failures\FailBoolean.cs" />
     <Compile Include="Failures\FailCastable.cs" />
