@@ -16,7 +16,7 @@ namespace Synergy.Contracts.Test.Failures
             var exception = Fail.BecauseEnumOutOfRange(unsupportedEnumValue);
 
             // ASSERT
-            Assert.That(exception.Message, Is.EqualTo("Unsupported ContractorType: 0"));
+            Assert.That(exception.Message, Is.EqualTo("Unsupported ContractorType value: 0"));
         }
 
 
@@ -37,7 +37,7 @@ namespace Synergy.Contracts.Test.Failures
 
             // ASSERT
             Assert.That(exception, Is.Not.Null);
-            Assert.That(exception.Message, Is.EqualTo("Unsupported ContractorType: 0"));
+            Assert.That(exception.Message, Is.EqualTo("Unsupported ContractorType value: 0"));
         }
     }
 }
