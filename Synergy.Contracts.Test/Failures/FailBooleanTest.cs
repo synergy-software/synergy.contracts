@@ -8,21 +8,53 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfFalse()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfFalse(false, "this should be true - first check")
+            // ARRANGE
+            bool someFalseValue = false;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                () => Fail.IfFalse(someFalseValue, "this should be true")
                 );
 
-            Fail.IfFalse(true, "this should be true - second check");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this should be true"));
+        }
+
+        [Test]
+        public void IfFalseSuccess()
+        {
+            // ARRANGE
+            var someTrueValue = true;
+
+            // ACT
+            Fail.IfFalse(someTrueValue, "this should be true");
         }
 
         [Test]
         public void IfTrue()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfTrue(true, "this should be false - first check")
+            // ARRANGE
+            var someTrueValue = true;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                () => Fail.IfTrue(someTrueValue, "this should be false")
                 );
 
-            Fail.IfTrue(false, "this should be false - second check");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this should be false"));
+        }
+
+        [Test]
+        public void IfTrueSuccess()
+        {
+            // ARRANGE
+            var someFalseValue = false;
+
+            // ACT
+            Fail.IfTrue(someFalseValue, "this should be false");
         }
     }
 }
