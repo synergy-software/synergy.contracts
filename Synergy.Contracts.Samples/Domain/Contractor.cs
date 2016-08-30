@@ -5,14 +5,26 @@ namespace Synergy.Contracts.Samples.Domain
 {
     public class Contractor
     {
-        public static Contractor CreateCompany(string name)
+        [NotNull, Pure]
+        public static Contractor CreateCompany([NotNull] string name)
         {
+            Fail.IfArgumentNullOrEmpty(name, nameof(name));
+
             return new Contractor
             {
                 Id = Guid.NewGuid(),
                 Type = ContractorType.Company,
                 CompanyName = name
             };
+        }
+
+        [NotNull, Pure]
+        public static Contractor CreatePerson([NotNull] string firstName, [NotNull] string lastName)
+        {
+            Fail.IfArgumentNullOrEmpty(firstName, nameof(firstName));
+            Fail.IfArgumentNullOrEmpty(lastName, nameof(lastName));
+
+            throw Fail.Because("Not implemented yet");
         }
 
         public Guid Id { get; set; }
