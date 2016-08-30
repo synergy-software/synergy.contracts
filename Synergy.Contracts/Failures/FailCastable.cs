@@ -19,7 +19,6 @@ namespace Synergy.Contracts
         /// <typeparam name="T">The expected type.</typeparam>
         /// <param name="value">Value to check if it can be casted to specified type.</param>
         /// <returns>The casted object (or <see langword="null"/>).</returns>
-        [DebuggerStepThrough]
         [ContractAnnotation("value: null => null; value: notnull => notnull")]
         [CanBeNull]
         [AssertionMethod]
@@ -37,7 +36,6 @@ namespace Synergy.Contracts
         /// <typeparam name="T">The expected type.</typeparam>
         /// <param name="value">Value to check if it can be casted to specified type.</param>
         /// <returns>The casted object. This method will NEVER return <see langword="null"/>.</returns>
-        [DebuggerStepThrough]
         [ContractAnnotation("value: null => halt; value: notnull => notnull")]
         [NotNull]
         [AssertionMethod]
@@ -56,7 +54,6 @@ namespace Synergy.Contracts
         /// <param name="expectedType">The expected type.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [AssertionMethod]
         public static void IfNotCastable([CanBeNull] object value, [NotNull] Type expectedType, [NotNull] string message, [NotNull] params object[] args)
@@ -79,7 +76,6 @@ namespace Synergy.Contracts
         /// <param name="value">Value to check if it can be casted to specified type.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [AssertionMethod]
         public static void IfNotCastable<T>([CanBeNull] object value, [NotNull] string message, [NotNull] params object[] args)
@@ -93,7 +89,6 @@ namespace Synergy.Contracts
         /// </summary>
         /// <typeparam name="T">The expected Type.</typeparam>
         /// <param name="value">Value to check if it can be casted to specified type.</param>
-        [DebuggerStepThrough]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
         public static void IfNullOrNotCastable<T>([CanBeNull] object value)
@@ -109,7 +104,6 @@ namespace Synergy.Contracts
         /// <param name="value">Value to check if it can be casted to specified type.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [ContractAnnotation("value: null => halt")]
         [StringFormatMethod("message")]
         [AssertionMethod]

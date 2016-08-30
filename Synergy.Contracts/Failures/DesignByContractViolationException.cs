@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
@@ -9,6 +10,7 @@ namespace Synergy.Contracts
     /// When you see it it means that someone does not meet the contract.
     /// </summary>
     [Serializable]
+    [DebuggerStepThrough]
     public class DesignByContractViolationException : Exception
     {
         /// <summary>

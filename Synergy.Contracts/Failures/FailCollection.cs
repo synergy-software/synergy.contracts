@@ -15,7 +15,6 @@ namespace Synergy.Contracts
         /// <typeparam name="T">Type of the collection element.</typeparam>
         /// <param name="collection">Collection to check against being <see langword="null" /> or empty.</param>
         /// <param name="collectionName">Name of the collection.</param>
-        [DebuggerStepThrough]
         [ContractAnnotation("collection: null => halt")]
         [AssertionMethod]
         public static void IfCollectionNullOrEmpty<T>(
@@ -38,7 +37,6 @@ namespace Synergy.Contracts
         /// <typeparam name="T">Type of the collection element.</typeparam>
         /// <param name="collection">Collection to investigate whether contains null.</param>
         /// <param name="collectionName">Name of the collection</param>
-        [DebuggerStepThrough]
         [ContractAnnotation("collection: null => halt")]
         [AssertionMethod]
         public static void IfCollectionContainsNull<T>(

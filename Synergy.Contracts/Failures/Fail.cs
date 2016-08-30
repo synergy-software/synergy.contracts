@@ -33,8 +33,7 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="message">Message that will be passed to the <see cref="DesignByContractViolationException"/>.</param>
         /// <param name="args">Arguments that will be passed to the <see cref="DesignByContractViolationException"/>.</param>
-        /// <returns>The exception to throw when contract is violated</returns>
-        [DebuggerStepThrough]
+        /// <returns>The exception to throw when contract is violated.</returns>
         [StringFormatMethod("message")]
         [NotNull, Pure]
         public static DesignByContractViolationException Because([NotNull] string message, [NotNull] params object[] args)

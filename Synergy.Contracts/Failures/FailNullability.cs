@@ -13,7 +13,6 @@ namespace Synergy.Contracts
         /// <param name="value">Value to check against nullability.</param>
         /// <param name="name">Name of the checked argument / parameter to check the nullability of.</param>
         /// <returns>The same value that was provided to the function but now it is NOT nullable.</returns>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt; value: notnull => notnull")]
         [NotNull]
@@ -55,7 +54,6 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="argumentValue">Value of the argument to check against being <see langword="null" />.</param>
         /// <param name="argumentName">Name of the argument passed to your method.</param>
-        [DebuggerStepThrough]
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
         public static void IfArgumentNull(
@@ -74,7 +72,6 @@ namespace Synergy.Contracts
         /// <param name="value">Value to check against being <see langword="null" />.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
@@ -95,7 +92,6 @@ namespace Synergy.Contracts
         /// <param name="value">Value to check against being NOT <see langword="null" />.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [ContractAnnotation("value: notnull => halt")]
         [AssertionMethod]

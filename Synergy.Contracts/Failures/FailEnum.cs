@@ -30,7 +30,6 @@ namespace Synergy.Contracts
         ///  }
         /// </code>
         /// </example>
-        [DebuggerStepThrough]
         [NotNull, Pure]
         public static DesignByContractViolationException BecauseEnumOutOfRange<T>(T value)
         {

@@ -12,7 +12,6 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="argumentValue">Value of the argument to check against <see langword="null"/> or emptiness.</param>
         /// <param name="argumentName">Name of the argument passed to your method.</param>
-        [DebuggerStepThrough]
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
         public static void IfArgumentNullOrEmpty(
@@ -33,7 +32,6 @@ namespace Synergy.Contracts
         /// <param name="value">Value to check against <see langword="null"/> or emptiness.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
@@ -55,7 +53,6 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="argumentValue">Value of the argument to check</param>
         /// <param name="argumentName">Name of the argument passed to your method.</param>
-        [DebuggerStepThrough]
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
         public static void IfArgumentNullOrWhiteSpace(
@@ -76,7 +73,6 @@ namespace Synergy.Contracts
         /// <param name="value">Value to check</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]

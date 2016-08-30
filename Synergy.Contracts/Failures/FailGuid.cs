@@ -13,7 +13,6 @@ namespace Synergy.Contracts
         /// <param name="value">The <see cref="Guid" /> checked for emptiness</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [AssertionMethod]
         public static void IfEmpty(Guid value, [NotNull] string message, [NotNull] params object[] args)
@@ -40,7 +39,6 @@ namespace Synergy.Contracts
         /// }
         /// </code>
         /// </example>
-        [DebuggerStepThrough]
         [AssertionMethod]
         public static void IfArgumentEmpty(Guid value, [NotNull] [InvokerParameterName] string argumentName)
         {

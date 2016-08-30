@@ -25,7 +25,6 @@ namespace Synergy.Contracts
         /// }
         /// </code>
         /// </example>
-        [DebuggerStepThrough]
         [StringFormatMethod("message")]
         [AssertionMethod]
         public static void IfNotMidnight([CanBeNull] DateTime? value, [NotNull] string message, [NotNull] params object[] args)
