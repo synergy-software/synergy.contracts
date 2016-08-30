@@ -13,7 +13,7 @@ namespace Synergy.Contracts.Test.Failures
             var kolekcja = new[] {new object(), "element"};
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionContains(kolekcja, e => object.Equals(e,  "ala"), "ta kolekcja ma 'ala'")
+                () => Fail.IfCollectionContains(kolekcja, e => object.Equals(e, "element"), "ta kolekcja ma 'ala'")
             );
 
             Fail.IfCollectionContains(kolekcja, e => object.Equals(e, "dziwny"), "ta kolekcja NIE ma elementu dziwnego");
