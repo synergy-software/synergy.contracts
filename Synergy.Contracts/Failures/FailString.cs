@@ -14,7 +14,7 @@ namespace Synergy.Contracts
         /// <param name="argumentName">Name of the argument passed to your method.</param>
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
-        public static void IfArgumentNullOrEmpty(
+        public static void IfArgumentEmpty(
             [CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue,
             [NotNull] string argumentName)
         {
@@ -35,7 +35,7 @@ namespace Synergy.Contracts
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
-        public static void IfNullOrEmpty(
+        public static void IfEmpty(
             [CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] string value,
             [NotNull] string message,
             [NotNull] params object[] args)
@@ -55,7 +55,7 @@ namespace Synergy.Contracts
         /// <param name="argumentName">Name of the argument passed to your method.</param>
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
-        public static void IfArgumentNullOrWhiteSpace(
+        public static void IfArgumentWhiteSpace(
             [CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue,
             [NotNull] string argumentName)
         {
@@ -76,7 +76,7 @@ namespace Synergy.Contracts
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
-        public static void IfNullOrWhitespace(
+        public static void IfWhitespace(
             [CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] string value,
             [NotNull] string message,
             [NotNull] params object[] args)

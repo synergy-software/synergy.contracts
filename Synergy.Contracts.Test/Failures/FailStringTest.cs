@@ -6,69 +6,69 @@ namespace Synergy.Contracts.Test.Failures
     public class FailStringTest
     {
         [Test]
-        public void IfArgumentNullOrEmpty()
+        public void IfArgumentEmpty()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentNullOrEmpty(null, "null")
+                () => Fail.IfArgumentEmpty(null, "null")
             );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentNullOrEmpty("", "empty")
+                () => Fail.IfArgumentEmpty("", "empty")
             );
 
-            Fail.IfArgumentNullOrEmpty("nie pusty", "nie-pusty");
-            Fail.IfArgumentNullOrEmpty("  ", "bia쿮-znaki");
+            Fail.IfArgumentEmpty("nie pusty", "nie-pusty");
+            Fail.IfArgumentEmpty("  ", "bia쿮-znaki");
         }
 
         [Test]
-        public void IfNullOrEmpty()
+        public void IfEmpty()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNullOrEmpty("", "message")
+                () => Fail.IfEmpty("", "message")
                 );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNullOrEmpty(null, "message")
+                () => Fail.IfEmpty(null, "message")
                 );
 
-            Fail.IfNullOrEmpty("   ", "message");
-            Fail.IfNullOrEmpty("aa", "message");
+            Fail.IfEmpty("   ", "message");
+            Fail.IfEmpty("aa", "message");
         }
 
         [Test]
-        public void IfArgumentNullOrWhiteSpace()
+        public void IfArgumentWhiteSpace()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentNullOrWhiteSpace(null, "null")
+                () => Fail.IfArgumentWhiteSpace(null, "null")
             );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentNullOrWhiteSpace("", "empty")
+                () => Fail.IfArgumentWhiteSpace("", "empty")
             );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentNullOrWhiteSpace("   ", "bia쿮-znaki")
+                () => Fail.IfArgumentWhiteSpace("   ", "bia쿮-znaki")
             );
 
-            Fail.IfArgumentNullOrWhiteSpace("nie pusty", "nie-pusty");
+            Fail.IfArgumentWhiteSpace("nie pusty", "nie-pusty");
         }
 
         [Test]
-        public void IfNullOrWhitespace()
+        public void IfWhitespace()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNullOrWhitespace("", "message")
+                () => Fail.IfWhitespace("", "message")
                 );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNullOrWhitespace(null, "message")
+                () => Fail.IfWhitespace(null, "message")
                 );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNullOrWhitespace("   ", "message")
+                () => Fail.IfWhitespace("   ", "message")
                 );
 
-            Fail.IfNullOrWhitespace("aa", "message");
+            Fail.IfWhitespace("aa", "message");
         }
     }
 }
