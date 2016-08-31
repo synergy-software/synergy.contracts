@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using JetBrains.Annotations;
 
 namespace Synergy.Contracts
@@ -25,6 +24,7 @@ namespace Synergy.Contracts
 
         /// <summary>
         /// Throws exception when argument value is equal to the <paramref name="unexpected"/> value.
+        /// <para>REMARKS: If one of the values is <see langword="null" /> the other one CANNOT be <see langword="null" />.</para>
         /// </summary>
         /// <param name="unexpected">The unexpected value.</param>
         /// <param name="argumentValue">The argument value to be checked.</param>
@@ -42,7 +42,7 @@ namespace Synergy.Contracts
 
         /// <summary>
         /// Throws exception when two values are NOT equal. 
-        /// <para>REMARKS: If one of the values is <see langword="null" /> the other one must also be <see langword="null" />.</para>
+        /// <para>REMARKS: If one of the values is <see langword="null" /> the other one MUST also be <see langword="null" />.</para>
         /// </summary>
         /// <param name="expected">The unexpected value.</param>
         /// <param name="actual">The actual value to be checked.</param>
@@ -58,6 +58,7 @@ namespace Synergy.Contracts
                 throw Fail.Because(message, args);
         }
 
+        // TODO: IfArgumentNotEqual
         // TODO: a.FailIfNotEqual(b)
     }
 }

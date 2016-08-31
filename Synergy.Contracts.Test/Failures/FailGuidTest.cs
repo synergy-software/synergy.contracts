@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using Synergy.Contracts.Samples;
 
@@ -7,57 +9,88 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailGuidTest
     {
-        [Test]
-        public void IfArgumentEmpty()
-        {
-            // ARRANGE
-            var someEmptyGuid = Guid.Empty;
+        #region Fail.IfArgumentEmpty
 
+        [TestCaseSource(nameof(FailGuidTest.GetEmptyGuid))]
+        public void IfArgumentEmpty(Guid someEmptyGuid)
+        {
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentEmpty(someEmptyGuid, nameof(someEmptyGuid)));
+                () => Fail.IfArgumentEmpty(someEmptyGuid, nameof(someEmptyGuid))
+            );
 
             // ASSERT
             Assert.That(exception.Message, Is.EqualTo("Argument 'someEmptyGuid' is an empty Guid."));
         }
 
-        [Test]
-        public void IfArgumentEmptySuccess()
+        [TestCaseSource(nameof(FailGuidTest.GetNewGuid))]
+        public void IfArgumentEmptySuccess(Guid someGuid)
         {
-            // ARRANGE
-            var someGuid = Guid.NewGuid();
-
             // ACT
             Fail.IfArgumentEmpty(someGuid, nameof(someGuid));
         }
 
-        [Test]
-        public void IfArgumentEmptySample()
+        [TestCaseSource(nameof(FailGuidTest.GetEmptyGuid))]
+        public void IfArgumentEmptySample(Guid id)
         {
             // ARRANGE
-            Console.WriteLine("Guid.Empty = " + Guid.Empty);
-            Console.WriteLine("new Guid() = " + new Guid());
-
             IContractorRepository contractorRepository = new ContractorRepository();
-            var id = new Guid();
 
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                () => contractorRepository.FindContractorByGuid(id: id));
+                () => contractorRepository.FindContractorByGuid(id: id)
+            );
 
             // ASSERT
-            Assert.That(exception, Is.Not.Null);
             Assert.That(exception.Message, Is.EqualTo($"Argument '{nameof(id)}' is an empty Guid."));
         }
+
+        #endregion
+
+        #region Fail.IfEmpty
 
         [Test]
         public void IfEmpty()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfEmpty(Guid.Empty, "guid is empty"));
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfEmpty(Guid.Empty, "guid is empty and it shouldn't be")
+            );
 
-            Fail.IfEmpty(Guid.NewGuid(), "guid is empty");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("guid is empty and it shouldn't be"));
+        }
+
+        [Test]
+        public void IfEmptySuccess()
+        {
+            // ARRANGE
+            Guid notEmptyGuid = Guid.NewGuid();
+
+            // ACT
+            Fail.IfEmpty(notEmptyGuid, "guid is empty and it shouldn't be");
+        }
+
+        #endregion
+
+        [ItemNotNull, NotNull]
+        private static IEnumerable GetEmptyGuid()
+        {
+            yield return Guid.Empty;
+        }
+
+        [ItemNotNull, NotNull]
+        private static IEnumerable GetNewGuid()
+        {
+            yield return Guid.NewGuid();
+        }
+
+        [Explicit, Test]
+        public void WriteEmptyGuidsToConsole()
+        {
+            Console.WriteLine("Guid.Empty = " + Guid.Empty);
+            Console.WriteLine("new Guid() = " + new Guid());
         }
     }
 }
