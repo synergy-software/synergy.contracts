@@ -10,8 +10,6 @@ namespace Synergy.Contracts
     {
         private const string NotCastableMessage = "Expected object of type '{0}' but was '{1}'";
 
-        //TODO: public static void FailIfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
-
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type. It also returns the casted object or <see langword="null"/>.
         /// <para>REMARKS: You can pass <see langword="null"/> to this method and will NOT throw the exception.</para>
@@ -29,6 +27,9 @@ namespace Synergy.Contracts
             return (T) value;
         }
 
+        //TODO: public static void Fail.IfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
+
+
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type. It also returns the casted object.
         /// <para>REMARKS: You CANNOT pass <see langword="null"/> to this method as it will throw the exception.</para>
@@ -45,6 +46,7 @@ namespace Synergy.Contracts
             Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
             return (T) value;
         }
+
 
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type.

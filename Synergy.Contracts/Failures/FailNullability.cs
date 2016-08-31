@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace Synergy.Contracts
@@ -19,7 +20,7 @@ namespace Synergy.Contracts
         [AssertionMethod]
         public static T FailIfNull<T>(
             [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this T value,
-            [NotNull] string name) where T : class
+            [NotNull] string name)
         {
             Fail.RequiresArgumentName(argumentName: name);
 
@@ -31,22 +32,29 @@ namespace Synergy.Contracts
 
         /// <summary>
         /// Throws exception when provided value is <see langword="null"/>.
-        /// <para>REMARKS: This is the most commonly used method to check argument and parameter nullability.</para>
         /// </summary>
         /// <typeparam name="T">Type of the value to check against nullability.</typeparam>
         /// <param name="value">Value to check against nullability.</param>
-        /// <param name="name">Name of the checked argument / parameter to check the nullability of.</param>
-        /// <returns>The same value that was provided to the function but now it is NOT nullable.</returns>
-        public static T FailIfNull<T>(
-            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this T? value,
-            [NotNull] string name) where T : struct
+        /// <param name="memberName">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
+        /// <param name="sourceFilePath">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
+        /// <param name="sourceLineNumber">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
+        /// <returns></returns>
+        [ContractAnnotation("value: null => halt; value: notnull => notnull")]
+        [AssertionMethod]
+        [NotNull]
+        public static T OrFail<T>(
+            [AssertionCondition(AssertionConditionType.IS_NOT_NULL), CanBeNull] this T value,
+            [NotNull, CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "",
+            [CallerLineNumber] int sourceLineNumber = 0)
         {
-            Fail.RequiresArgumentName(argumentName: name);
+            Fail.IfArgumentWhiteSpace(memberName, nameof(memberName));
+            Fail.IfArgumentWhiteSpace(sourceFilePath, nameof(sourceFilePath));
+            Fail.IfArgumentEqual(0, sourceLineNumber, nameof(sourceLineNumber));
 
-            if (value == null)
-                throw Fail.Because("'{0}' is null and it shouldn't be", name);
+            IfNull(value, $"Object of type {typeof(T).Name} is null in {memberName}() method [{sourceFilePath}({sourceLineNumber})]");
 
-            return value.Value;
+            return value;
         }
 
         /// <summary>

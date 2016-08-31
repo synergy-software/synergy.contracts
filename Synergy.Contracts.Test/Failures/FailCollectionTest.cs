@@ -40,14 +40,14 @@ namespace Synergy.Contracts.Test.Failures
             IEnumerable<string> pełna = Enumerable.Repeat("element", 2);
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionNullOrEmpty(pusta, "collection")
+                () => Fail.IfCollectionEmpty(pusta, "collection")
             );
 
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfCollectionNullOrEmpty(nullowata, "collection")
+                () => Fail.IfCollectionEmpty(nullowata, "collection")
             );
 
-            Fail.IfCollectionNullOrEmpty(pełna, "collection");
+            Fail.IfCollectionEmpty(pełna, "collection");
         }
 
         [Test]

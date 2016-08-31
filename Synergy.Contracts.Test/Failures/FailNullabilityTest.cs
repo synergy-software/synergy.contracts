@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using Synergy.Contracts.Samples;
 
@@ -11,17 +12,42 @@ namespace Synergy.Contracts.Test.Failures
         {
             Assert.Throws<DesignByContractViolationException>(
                 () => ((object)null).FailIfNull("to jest null")
-                );
+            );
 
             new object().FailIfNull("to nie null");
 
             long? itIsNull = null;
             Assert.Throws<DesignByContractViolationException>(
-              () => itIsNull.FailIfNull(nameof(itIsNull))
-              );
+                () => itIsNull.FailIfNull(nameof(itIsNull))
+            );
 
             long? itIsNotNull = 123;
             itIsNotNull.FailIfNull(nameof(itIsNotNull));
+        }
+
+        [Test]
+        public void OrFail()
+        {
+            // ARRANGE
+            string thisMustBeNull = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                () => thisMustBeNull.OrFail());
+
+            // ASSERT
+            Console.WriteLine(exception.Message);
+        }
+
+        [Test]
+        public void OrFailSuccess()
+        {
+            // ARRANGE
+            var thisCannotBeNull = "i am not null";
+
+            // ACT
+            thisCannotBeNull.OrFail();
         }
 
         [Test]
@@ -34,7 +60,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 () => repository.FilterContractors(paramaters: parameters)
-                );
+            );
 
             // ASSERT
             Assert.That(exception, Is.Not.Null);
@@ -56,7 +82,7 @@ namespace Synergy.Contracts.Test.Failures
         {
             Assert.Throws<DesignByContractViolationException>(
                 () => Fail.IfNotNull("not null", "to nie null")
-                );
+            );
 
             Fail.IfNotNull(null, "to null");
         }
@@ -66,7 +92,7 @@ namespace Synergy.Contracts.Test.Failures
         {
             Assert.Throws<DesignByContractViolationException>(
                 () => Fail.IfNull(null, "to jest null")
-                );
+            );
 
             Fail.IfNull(value: new object(), message: "to nie null");
         }

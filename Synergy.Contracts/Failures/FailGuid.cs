@@ -7,7 +7,7 @@ namespace Synergy.Contracts
     public static partial class Fail
     {
         /// <summary>
-        /// Throws exception when tested <see cref="Guid" /> is empty ({00000000-0000-0000-0000-000000000000}).
+        /// Throws exception when checked <see cref="Guid" /> is empty ({00000000-0000-0000-0000-000000000000}).
         /// <para>REMARKS: When you create a <see cref="Guid" /> using default constructor it is empty. You can check the emptiness using this Fail.</para>
         /// </summary>
         /// <param name="value">The <see cref="Guid" /> checked for emptiness</param>
@@ -23,7 +23,7 @@ namespace Synergy.Contracts
         }
 
         /// <summary>
-        /// Throws exception when tested argument is an empty <see cref="Guid" /> ({00000000-0000-0000-0000-000000000000}).<br/>
+        /// Throws exception when checked argument is an empty <see cref="Guid" /> ({00000000-0000-0000-0000-000000000000}).<br/>
         /// <para>REMARKS: When you create a <see cref="Guid" /> using default constructor it is empty. You can check the argument emptiness using this Fail.</para>
         /// </summary>
         /// <param name="value">The <see cref="Guid" /> checked for emptiness.</param>
@@ -46,5 +46,7 @@ namespace Synergy.Contracts
 
             Fail.IfEqual(Guid.Empty, value, "Argument '{0}' is an empty Guid.", argumentName);
         }
+
+        // TODO: guid.FailIfEmpty
     }
 }

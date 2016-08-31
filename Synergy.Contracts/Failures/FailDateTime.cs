@@ -37,5 +37,7 @@ namespace Synergy.Contracts
             DateTime dateTime = value.Value;
             Fail.IfNotEqual(dateTime.Date, dateTime, message, args);
         }
+
+        //TODO: FailIfNotMidnight
     }
 }

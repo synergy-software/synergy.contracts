@@ -25,6 +25,8 @@ namespace Synergy.Contracts
                 throw Fail.Because(message, args);
         }
 
+        //TODO: variable.FailIfFalse(nameof(variable))
+
         /// <summary>
         /// Throws exception when checked value is <see langword="true" />.
         /// </summary>
@@ -44,5 +46,7 @@ namespace Synergy.Contracts
             if (value)
                 throw Fail.Because(message, args);
         }
+
+        //TODO: variable.FailIfTrue(nameof(variable))
     }
 }

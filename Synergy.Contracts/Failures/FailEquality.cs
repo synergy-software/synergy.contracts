@@ -24,6 +24,23 @@ namespace Synergy.Contracts
         }
 
         /// <summary>
+        /// Throws exception when argument value is equal to the <paramref name="unexpected"/> value.
+        /// </summary>
+        /// <param name="unexpected">The unexpected value.</param>
+        /// <param name="argumentValue">The argument value to be checked.</param>
+        /// <param name="argumentName">Name of the argument passed to your method.</param>
+        [AssertionMethod]
+        public static void IfArgumentEqual([CanBeNull] object unexpected, [CanBeNull] object argumentValue, [NotNull] string argumentName)
+        {
+            Fail.RequiresArgumentName(argumentName);
+
+            if (object.Equals(unexpected, argumentValue))
+                throw Fail.Because("Argument '{0}' is equal to {1} and it should NOT be.", argumentName, unexpected);
+        }
+
+        // TODO: a.FailIfEqual(b)
+
+        /// <summary>
         /// Throws exception when two values are NOT equal. 
         /// <para>REMARKS: If one of the values is <see langword="null" /> the other one must also be <see langword="null" />.</para>
         /// </summary>
@@ -40,5 +57,7 @@ namespace Synergy.Contracts
             if (object.Equals(expected, actual) == false)
                 throw Fail.Because(message, args);
         }
+
+        // TODO: a.FailIfNotEqual(b)
     }
 }

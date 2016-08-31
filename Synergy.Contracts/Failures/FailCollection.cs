@@ -17,7 +17,7 @@ namespace Synergy.Contracts
         /// <param name="collectionName">Name of the collection.</param>
         [ContractAnnotation("collection: null => halt")]
         [AssertionMethod]
-        public static void IfCollectionNullOrEmpty<T>(
+        public static void IfCollectionEmpty<T>(
             [CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] IEnumerable<T> collection,
             [NotNull] string collectionName)
         {
@@ -29,6 +29,8 @@ namespace Synergy.Contracts
             if (collection.Any() == false)
                 throw Because("Collection '{0}' should not be empty but it is.", collectionName);
         }
+
+        //TODO: collection.FailIfEmpty(nameof(collection))
 
         /// <summary>
         /// Throws exception when the collection contains null.
