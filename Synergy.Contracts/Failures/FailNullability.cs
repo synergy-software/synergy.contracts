@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
@@ -52,7 +51,7 @@ namespace Synergy.Contracts
             Fail.IfArgumentWhiteSpace(sourceFilePath, nameof(sourceFilePath));
             Fail.IfArgumentEqual(0, sourceLineNumber, nameof(sourceLineNumber));
 
-            IfNull(value, $"Object of type {typeof(T).Name} is null in {memberName}() method [{sourceFilePath}({sourceLineNumber})]");
+            Fail.IfNull(value, $"Object of type {typeof(T).Name} is null in {memberName}() method [{sourceFilePath}({sourceLineNumber})]");
 
             return value;
         }

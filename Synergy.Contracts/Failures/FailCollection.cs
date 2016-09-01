@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
@@ -21,13 +20,13 @@ namespace Synergy.Contracts
             [CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] IEnumerable<T> collection,
             [NotNull] string collectionName)
         {
-            RequiresCollectionName(collectionName);
+            Fail.RequiresCollectionName(collectionName);
 
             if (collection == null)
-                throw Because("Collection '{0}' should not be null but it is.", collectionName);
+                throw Fail.Because("Collection '{0}' should not be null but it is.", collectionName);
 
             if (collection.Any() == false)
-                throw Because("Collection '{0}' should not be empty but it is.", collectionName);
+                throw Fail.Because("Collection '{0}' should not be empty but it is.", collectionName);
         }
 
         //TODO: collection.FailIfEmpty(nameof(collection))
@@ -45,10 +44,10 @@ namespace Synergy.Contracts
             [CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] IEnumerable<T> collection,
             [NotNull] string collectionName) where T : class
         {
-            RequiresCollectionName(collectionName);
+            Fail.RequiresCollectionName(collectionName);
 
-            IfArgumentNull(collection, nameof(collection));
-            IfTrue(collection.Contains(null), "Collection '{0}' contains null", collectionName);
+            Fail.IfArgumentNull(collection, nameof(collection));
+            Fail.IfTrue(collection.Contains(null), "Collection '{0}' contains null", collectionName);
         }
 
         /// <summary>
@@ -69,11 +68,11 @@ namespace Synergy.Contracts
             [NotNull] string message,
             [NotNull] params object[] args)
         {
-            RequiresMessage(message, args);
+            Fail.RequiresMessage(message, args);
 
-            IfArgumentNull(collection, nameof(collection));
+            Fail.IfArgumentNull(collection, nameof(collection));
             T element = collection.FirstOrDefault(func);
-            IfNotNull(element, message, args);
+            Fail.IfNotNull(element, message, args);
         }
 
         //TODO: public static void IfCollectionDoesNotContain<T>([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] IEnumerable<T> collection,) 
@@ -96,14 +95,15 @@ namespace Synergy.Contracts
             [NotNull] string message,
             [NotNull] params object[] args)
         {
-            RequiresMessage(message, args);
-            IfArgumentNull(collection1, nameof(collection1));
-            IfArgumentNull(collection2, nameof(collection2));
+            Fail.RequiresMessage(message, args);
+            Fail.IfArgumentNull(collection1, nameof(collection1));
+            Fail.IfArgumentNull(collection2, nameof(collection2));
 
             int collection1Count = collection1.Count();
             int collection2Count = collection2.Count();
-            bool areEquivalent = collection1Count == collection2Count && collection1.Intersect(collection2).Count() == collection1Count;
-            IfFalse(areEquivalent, message, args);
+            bool areEquivalent = (collection1Count == collection2Count) && (collection1.Intersect(collection2)
+                                                                                       .Count() == collection1Count);
+            Fail.IfFalse(areEquivalent, message, args);
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
@@ -33,9 +32,9 @@ namespace Synergy.Contracts
         [NotNull, Pure]
         public static DesignByContractViolationException BecauseEnumOutOfRange([NotNull] Enum value)
         {
-            RequiresEnumValue(value);
+            Fail.RequiresEnumValue(value);
 
-            return new DesignByContractViolationException($"Unsupported {value.GetType().Name} value: {value}");
+            return new DesignByContractViolationException($"Unsupported {value.GetType() .Name} value: {value}");
         }
 
         [ExcludeFromCodeCoverage]

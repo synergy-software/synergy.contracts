@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
@@ -61,7 +60,7 @@ namespace Synergy.Contracts
         {
             Fail.RequiresArgumentName(argumentName);
 
-            Fail.IfArgumentNull( argumentValue,  argumentName);
+            Fail.IfArgumentNull(argumentValue, argumentName);
 
             if (string.IsNullOrWhiteSpace(value: argumentValue))
                 throw Fail.Because("Argument '{0}' was empty.", argumentName);
@@ -88,7 +87,6 @@ namespace Synergy.Contracts
             if (string.IsNullOrWhiteSpace(value))
                 throw Fail.Because(message, args);
         }
-
 
         /// <summary>
         /// Checks if argument name was provided.

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
@@ -29,7 +28,6 @@ namespace Synergy.Contracts
 
         //TODO: public static void Fail.IfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
 
-
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type. It also returns the casted object.
         /// <para>REMARKS: You CANNOT pass <see langword="null"/> to this method as it will throw the exception.</para>
@@ -46,7 +44,6 @@ namespace Synergy.Contracts
             Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
             return (T) value;
         }
-
 
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type.
