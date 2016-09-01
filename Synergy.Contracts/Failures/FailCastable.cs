@@ -12,7 +12,7 @@ namespace Synergy.Contracts
 
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type. It also returns the casted object or <see langword="null"/>.
-        /// <para>REMARKS: You can pass <see langword="null"/> to this method and will NOT throw the exception.</para>
+        /// <para>REMARKS: You can pass <see langword="null"/> to this method and it will NOT throw the exception.</para>
         /// </summary>
         /// <typeparam name="T">The expected type.</typeparam>
         /// <param name="value">Value to check if it can be casted to specified type.</param>
@@ -50,7 +50,7 @@ namespace Synergy.Contracts
 
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type.
-        /// <para>REMARKS: You can pass <see langword="null"/> to this method and will NOT throw the exception.</para>
+        /// <para>REMARKS: You can pass <see langword="null"/> to this method and it will NOT throw the exception.</para>
         /// </summary>
         /// <param name="value">Value to check if it can be casted to specified type.</param>
         /// <param name="expectedType">The expected type.</param>
@@ -72,7 +72,7 @@ namespace Synergy.Contracts
 
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type.
-        /// <para>REMARKS: You can pass <see langword="null"/> to this method and will NOT throw the exception.</para>
+        /// <para>REMARKS: You can pass <see langword="null"/> to this method and it will NOT throw the exception.</para>
         /// </summary>
         /// <typeparam name="T">The expected Type.</typeparam>
         /// <param name="value">Value to check if it can be casted to specified type.</param>

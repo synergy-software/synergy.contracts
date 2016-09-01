@@ -5,6 +5,8 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailBooleanTest
     {
+        #region Fail.IfFalse
+
         [Test]
         public void IfFalse()
         {
@@ -31,6 +33,10 @@ namespace Synergy.Contracts.Test.Failures
             Fail.IfFalse(someTrueValue, "this should be true");
         }
 
+        #endregion
+
+        #region Fail.IfTrue
+
         [Test]
         public void IfTrue()
         {
@@ -56,5 +62,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             Fail.IfTrue(someFalseValue, "this should be false");
         }
+
+        #endregion
     }
 }

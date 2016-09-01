@@ -7,6 +7,8 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailCollectionTest
     {
+        #region Fail.IfCollectionContains()
+
         [Test]
         public void IfCollectionContains()
         {
@@ -18,6 +20,10 @@ namespace Synergy.Contracts.Test.Failures
 
             Fail.IfCollectionContains(kolekcja, e => object.Equals(e, "dziwny"), "ta kolekcja NIE ma elementu dziwnego");
         }
+
+        #endregion
+
+        #region Fail.IfCollectionContainsNull()
 
         [Test]
         public void IfCollectionContainsNull()
@@ -32,8 +38,12 @@ namespace Synergy.Contracts.Test.Failures
             Fail.IfCollectionContainsNull(pełna, "pełna");
         }
 
+        #endregion
+
+        #region Fail.IfCollectionEmpty()
+
         [Test]
-        public void IfCollectionNullOrEmpty()
+        public void IfCollectionEmpty()
         {
             IEnumerable<object> pusta = Enumerable.Empty<object>();
             IEnumerable<object> nullowata = null;
@@ -49,6 +59,10 @@ namespace Synergy.Contracts.Test.Failures
 
             Fail.IfCollectionEmpty(pełna, "collection");
         }
+
+        #endregion
+
+        #region Fail.IfCollectionsAreNotEquivalent()
 
         [Test]
         public void IfCollectionsAreNotEquivalent()
@@ -66,5 +80,7 @@ namespace Synergy.Contracts.Test.Failures
             Fail.IfCollectionsAreNotEquivalent(kolekcja1, kolekcja1InnaKolejność, "są różne");
             Fail.IfCollectionsAreNotEquivalent(pusta1, pusta2, "są różne");
         }
+
+        #endregion
     }
 }

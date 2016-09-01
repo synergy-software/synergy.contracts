@@ -6,6 +6,8 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailTest
     {
+        #region Fail.Because
+
         [Test]
         public void Because()
         {
@@ -28,5 +30,7 @@ namespace Synergy.Contracts.Test.Failures
             // ASSERT
             Assert.That(exception.Message, Is.EqualTo("Not implemented yet"));
         }
+
+        #endregion
     }
 }

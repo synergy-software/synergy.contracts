@@ -7,49 +7,60 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailCastableTest
     {
+        #region object.AsOrFail<T>()
+
         [Test]
         public void AsOrFail()
         {
             // ARRANGE
-            object someObjectButSurelyNotString = new object();
+            var someObjectButSurelyNotString = new object();
 
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 () => someObjectButSurelyNotString.AsOrFail<string>()
-                );
+            );
 
             // ASSERT
             Assert.That(exception.Message, Is.EqualTo("Expected object of type 'System.String' but was 'System.Object'"));
         }
 
         [Test]
-        public void AsOrFailSuccess()
+        [TestCase("text")]
+        [TestCase(null)]
+        public void AsOrFailSuccess(string toCast)
         {
-
-            "text".AsOrFail<string>();
-            ((object)null).AsOrFail<string>();
+            // ACT
+            toCast.AsOrFail<string>();
         }
 
+        #endregion
+
+        #region object.CastOrFail<T>()
+
         [Test]
-        public void CastOrFailNotNull()
+        public void CastOrFail()
         {
             Assert.Throws<DesignByContractViolationException>(
                 () => new object().CastOrFail<string>()
-                );
+            );
 
             Assert.Throws<DesignByContractViolationException>(
                 () => ((object) null).CastOrFail<string>()
-                );
+            );
 
             "tekst".CastOrFail<string>();
         }
+
+        #endregion
+
+        #region Fail.IfNotCastable<T>()
 
         [Test]
         public void IfNotCastable()
         {
             Assert.Throws<DesignByContractViolationException>(
                 () => Fail.IfNotCastable<IQueryable>(new object(), "wrong type 1")
-                );
+            );
 
             Fail.IfNotCastable<IList<string>>(new List<string>(), "wrong type 2");
         }
@@ -58,11 +69,15 @@ namespace Synergy.Contracts.Test.Failures
         public void IfNotCastableWithType()
         {
             Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotCastable(new object(), typeof (IQueryable), "wrong type 1")
-                );
+                () => Fail.IfNotCastable(new object(), typeof(IQueryable), "wrong type 1")
+            );
 
-            Fail.IfNotCastable(new List<string>(),typeof (IList<string>), "wrong type 2");
+            Fail.IfNotCastable(new List<string>(), typeof(IList<string>), "wrong type 2");
         }
+
+        #endregion
+
+        #region Fail.IfNullOrNotCastable<T>()
 
         [Test]
         public void IfNullOrNotCastable()
@@ -72,7 +87,9 @@ namespace Synergy.Contracts.Test.Failures
 
             Assert.Throws<DesignByContractViolationException>(
                 () => Fail.IfNullOrNotCastable<IQueryable>(new object())
-                );
+            );
         }
+
+        #endregion
     }
 }
