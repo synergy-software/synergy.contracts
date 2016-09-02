@@ -18,6 +18,7 @@ namespace Synergy.Contracts.Test.Failures
 
             long? itIsNull = null;
             Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
                 () => itIsNull.FailIfNull(nameof(itIsNull))
             );
 
@@ -59,6 +60,7 @@ namespace Synergy.Contracts.Test.Failures
 
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 () => repository.FilterContractors(paramaters: parameters)
             );
 

@@ -54,6 +54,7 @@ namespace Synergy.Contracts.Test.Failures
             );
 
             Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
                 () => Fail.IfCollectionEmpty(nullowata, "collection")
             );
 
@@ -71,6 +72,7 @@ namespace Synergy.Contracts.Test.Failures
             var kolekcja1InnaKolejność = new[] {"olo", "ala"};
             var kolekcja2 = new[] {"ala", "inna"};
             var pusta1 = new string[0];
+            // ReSharper disable once CollectionNeverUpdated.Local
             var pusta2 = new List<string>();
 
             Assert.Throws<DesignByContractViolationException>(

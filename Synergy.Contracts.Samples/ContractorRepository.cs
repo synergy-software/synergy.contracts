@@ -51,6 +51,7 @@ namespace Synergy.Contracts.Samples
     public class ContractorFilterParameters
     {
         [NotNull]
+        // ReSharper disable once NotNullMemberIsNotInitialized
         public DateRangeOpen FoundedBetween { get; set; }
     }
 

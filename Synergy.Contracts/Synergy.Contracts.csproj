@@ -43,6 +43,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Failures\DesignByContractViolationException.cs" />
     <Compile Include="Failures\Fail.cs" />
     <Compile Include="Failures\FailEnum.cs" />
