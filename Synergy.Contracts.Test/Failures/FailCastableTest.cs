@@ -25,12 +25,24 @@ namespace Synergy.Contracts.Test.Failures
         }
 
         [Test]
-        [TestCase("text")]
-        [TestCase(null)]
-        public void AsOrFailSuccess(string toCast)
+        public void AsOrFailSuccess()
         {
+            // ARRANGE 
+            object somethingCastable = "text";
+
             // ACT
-            toCast.AsOrFail<string>();
+            somethingCastable.AsOrFail<string>();
+        }
+
+        [Test]
+        public void AsOrFailSuccessWithNull()
+        {
+            // ARRANGE 
+            object somethingCastable = null;
+
+            // ACT
+            // ReSharper disable once ExpressionIsAlwaysNull
+            somethingCastable.AsOrFail<string>();
         }
 
         #endregion
@@ -40,15 +52,42 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void CastOrFail()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => new object().CastOrFail<string>()
+            // ARRANGE
+            object somethingNotCastable = 1;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => somethingNotCastable.CastOrFail<string>()
             );
 
-            Assert.Throws<DesignByContractViolationException>(
-                () => ((object) null).CastOrFail<string>()
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Expected object of type 'System.String' but was '1'"));
+        }
+
+        [Test]
+        public void CastOrFailWithNull()
+        {
+            // ARRANGE
+            object somethingNotCastable = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                () => somethingNotCastable.CastOrFail<string>()
             );
 
-            "tekst".CastOrFail<string>();
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Expected object of type 'System.String' but was 'null'"));
+        }
+
+        [Test]
+        public void CastOrFailSuccess()
+        {
+            // ARRANGE
+            var somethingCastable = "text";
+
+            // ACT
+            somethingCastable.CastOrFail<string>();
         }
 
         #endregion

@@ -10,14 +10,30 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfNotMidnight()
         {
-            DateTime now = DateTime.Today.AddSeconds(1000);
+            // ARRANGE
+            DateTime notMidnight = DateTime.Today.AddSeconds(1000);
 
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotMidnight( now, "ojtam ojtam")
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfNotMidnight(notMidnight, "date should have no hour nor second")
                 );
 
-            Fail.IfNotMidnight( DateTime.Today, "ojtam ojtam");
-            Fail.IfNotMidnight(null, "ojtam ojtam");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("date should have no hour nor second"));
+        }
+
+        [Test]
+        public void IfNotMidnightSuccess()
+        {
+            // ACT
+            Fail.IfNotMidnight(DateTime.Today, "date should have no hour nor second");
+        }
+
+        [Test]
+        public void IfNotMidnightSuccessWithNull()
+        {
+            // ACT
+            Fail.IfNotMidnight(null, "date should have no hour nor second");
         }
 
         [Test]
