@@ -9,12 +9,12 @@ DbC help us develop more reliable software. It is one of the basic principles of
 Now, let's quit yapping and show some code:
 
 ```C#
-        [NotNull, Pure]
-        public static Contractor CreatePerson([NotNull] string firstName, [NotNull] string lastName)
-        {
-            Fail.IfArgumentEmpty(firstName, nameof(firstName));
-            Fail.IfArgumentEmpty(lastName, nameof(lastName));
+[NotNull, Pure]
+public static Contractor CreatePerson([NotNull] string firstName, [NotNull] string lastName)
+{
+    Fail.IfArgumentEmpty(firstName, nameof(firstName));
+    Fail.IfArgumentEmpty(lastName, nameof(lastName));
 
-            throw Fail.Because("Not implemented yet");
-        }
+    throw Fail.Because("Not implemented yet");
+}
 ```
