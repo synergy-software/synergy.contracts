@@ -13,9 +13,13 @@ Now, let's quit yapping and show some code:
 public static Contractor CreatePerson([NotNull] string firstName, [NotNull] string lastName)
 {
     Fail.IfArgumentEmpty(firstName, nameof(firstName));
-    Fail.IfArgumentEmpty(lastName, nameof(lastName));
+    Fail.IfArgumentWhiteSpace(lastName, nameof(lastName));
 
-    throw Fail.Because("Not implemented yet");
+    return new Contractor()
+    {
+        FirstName = firstName,
+        LastName = lastName
+    };
 }
 ```
-What you can find above is some attributes from ReSharper's [static nullability analysis](https://www.jetbrains.com/resharper/help/Code_Analysis__Code_Annotations.html). The `[NotNull]` or `[CanBeNull]` attributes inform ReSharper about nullability contract of your method.
+What you can find above is some attributes from ReSharper's [static nullability analysis](https://www.jetbrains.com/resharper/help/Code_Analysis__Code_Annotations.html). The `[NotNull]` or `[CanBeNull]` attributes inform ReSharper about nullability contract of your method. The problem is that those attributes only inform, thay actually do not check that arguments or returned value against null. Moreover the above method not only requires that the first and last name cannot be null but it cannot even be en empty string or wihitespace. 
