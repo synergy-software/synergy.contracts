@@ -18,3 +18,4 @@ public static Contractor CreatePerson([NotNull] string firstName, [NotNull] stri
     throw Fail.Because("Not implemented yet");
 }
 ```
+What you can find above is some attributes from ReSharper's [static nullability analysis](https://www.jetbrains.com/resharper/help/Code_Analysis__Code_Annotations.html). The `[NotNull]` or `[CanBeNull]` attributes inform ReSharper about nullability contract of your method.
