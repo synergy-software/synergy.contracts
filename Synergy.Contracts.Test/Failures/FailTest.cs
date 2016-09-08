@@ -22,10 +22,12 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void BecauseSample()
         {
+            // ARRANGE
+            var contractor = new Contractor();
+
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
-                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                () => Contractor.CreatePerson("Marcin", "Celej"));
+                () => contractor.SetPersonName("Marcin", "Celej"));
 
             // ASSERT
             Assert.That(exception.Message, Is.EqualTo("Not implemented yet"));

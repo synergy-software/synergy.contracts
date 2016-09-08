@@ -37,8 +37,7 @@ namespace Synergy.Contracts
         /// <returns>The exception to throw when contract is violated.</returns>
         /// <example>
         /// <code>
-        /// [NotNull, Pure]
-        /// public static Contractor CreatePerson([NotNull] string firstName, [NotNull] string lastName)
+        /// public void SetPersonName([NotNull] string firstName, [NotNull] string lastName)
         /// {
         ///     throw Fail.Because("Not implemented yet");
         /// }

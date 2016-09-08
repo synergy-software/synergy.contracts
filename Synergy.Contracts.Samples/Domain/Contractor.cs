@@ -22,9 +22,13 @@ namespace Synergy.Contracts.Samples.Domain
         public static Contractor CreatePerson([NotNull] string firstName, [NotNull] string lastName)
         {
             Fail.IfArgumentEmpty(firstName, nameof(firstName));
-            Fail.IfArgumentEmpty(lastName, nameof(lastName));
+            Fail.IfArgumentWhiteSpace(lastName, nameof(lastName));
 
-            throw Fail.Because("Not implemented yet");
+            return new Contractor()
+            {
+                FirstName = firstName,
+                LastName = lastName
+            };
         }
 
         public Guid Id { get; set; }
@@ -52,6 +56,14 @@ namespace Synergy.Contracts.Samples.Domain
                 default:
                     throw Fail.BecauseEnumOutOfRange(this.Type);
             }
+        }
+
+        public void SetPersonName([NotNull] string firstName, [NotNull] string lastName)
+        {
+            Fail.IfArgumentEmpty(firstName, nameof(firstName));
+            Fail.IfArgumentEmpty(lastName, nameof(lastName));
+
+            throw Fail.Because("Not implemented yet");
         }
     }
 }
