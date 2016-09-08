@@ -28,4 +28,9 @@ To make sure your contract is checked during code execution you should add const
 
 ## idea
 
-Let us not explain the basics of DbC programming. What we believe is that the constraint checks should be checked not only in development phase but also on site. That's why the Fails you add to your code are compiled with it. Why? We believe that all constraint violations should be found during development but... Sometimes live shows that they are not. Therefore when there is such a situation you know what were wrong.
+Let us not explain the basics of DbC programming. What we believe is that the constraint checks should be checked not only in development phase but also on site. That's why the Fails you add to your code are compiled with it. Why? We believe that all constraint violations should be found during development but... Sometimes live shows that they are not. Therefore when there is such a situation you know more when you see `'firstName' was an empty string` instead of NullReferenceException.
+
+## nullability checks
+
+The most commonly occuring exception in .NET world is `NullReferenceException`. Therefor it is good to have a strategy for dealing with null in your code. Here is a list we prefer to use:
+- 80% of code assumes that argument, property or variable is `[NotNull]` (should never be null)
