@@ -1,6 +1,8 @@
+# synergy.contracts - a programming by contract C# library
+
 [![Build status](https://ci.appveyor.com/api/projects/status/3bem2a7rwf2nai26?svg=true)](https://ci.appveyor.com/project/MarcinCelej/synergy-contracts)
 
-# synergy.contracts - a programming by contract C# library
+[Download from nuget](https://www.nuget.org/packages/Synergy.Contracts/)
 
 Design by contract (DbC), also known as contract programming, programming by contract and design-by-contract programming, is an approach for designing software. In software words - if a class provides some functionality, through a method, it expects that certain criteria should be met - the method has a contract. When 'client' does not meet the contract of 'supplier' it will receive an exception.
 
@@ -33,12 +35,15 @@ To make sure your contract is checked during code execution you should add const
 Let us not explain the basics of DbC programming. What we believe is that the constraint checks should be checked not only in development phase but also on site. That's why the Fails you add to your code are compiled with it. Why? We believe that all constraint violations should be found during development but... Sometimes live shows that they are not. Therefore when there is such a situation you know more when you see `'firstName' was an empty string` instead of NullReferenceException.
 
 Rules we love to share:
+- use Visual Studio with ReSharper
 - consider each method separately - what contract this method has 
-- check method arguments for contract violation in the beginning of your method 
-- keep an empty line after the arguments contract checks (preconditions)
+- check method arguments for contract violation in the beginning of your method (preconditions)
+- keep an empty line after the preconditions checks
 - keep the contract check one line long - do not disturb your code coverage
 - do not unit test the contracts 
 - use it with [NotNull] and [CanBeNull] attributes 
+- mainly concentrate on preconditions but do not forget about postconditions and invariants
+- trust in contract - if method is marked as [NotNull] you don't need to test it... but off course you can
 
 ## nullability checks
 
