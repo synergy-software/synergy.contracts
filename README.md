@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/3bem2a7rwf2nai26?svg=true)](https://ci.appveyor.com/project/MarcinCelej/synergy-contracts)
+
 # synergy.contracts - a programming by contract C# library
 
 Design by contract (DbC), also known as contract programming, programming by contract and design-by-contract programming, is an approach for designing software. In software words - if a class provides some functionality, through a method, it expects that certain criteria should be met - the method has a contract. When 'client' does not meet the contract of 'supplier' it will receive an exception.
