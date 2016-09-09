@@ -22,4 +22,24 @@ public static Contractor CreatePerson([NotNull] string firstName, [NotNull] stri
     };
 }
 ```
-What you can find above is some attributes from ReSharper's [static nullability analysis](https://www.jetbrains.com/resharper/help/Code_Analysis__Code_Annotations.html). The `[NotNull]` or `[CanBeNull]` attributes inform ReSharper about nullability contract of your method. The problem is that those attributes only inform, thay actually do not check that arguments or returned value against null. Moreover the above method not only requires that the first and last name cannot be null but it cannot even be en empty string or wihitespace. 
+What you can find above is some attributes from ReSharper's [static nullability analysis](https://www.jetbrains.com/resharper/help/Code_Analysis__Code_Annotations.html). The `[NotNull]` or `[CanBeNull]` attributes inform ReSharper about nullability contract of your method. The problem is that those attributes only inform, they actually do not check that arguments or returned value against null. Moreover the above method not only requires that the first and last name cannot be null but it cannot even be en empty string or wihitespace. The last requirement cannot be checked by the ReSharper.
+
+To make sure your contract is checked during code execution you should add constraint checks. You can find the `Fail` calls above checking preconditions of the method. Is that all? Yes it is and it ins't. There are many helper methods on the  `Fail` class starting from nullability checks, argument requirements, casting checks and also fluent methods that make it easier to develop.
+
+## idea
+
+Let us not explain the basics of DbC programming. What we believe is that the constraint checks should be checked not only in development phase but also on site. That's why the Fails you add to your code are compiled with it. Why? We believe that all constraint violations should be found during development but... Sometimes live shows that they are not. Therefore when there is such a situation you know more when you see `'firstName' was an empty string` instead of NullReferenceException.
+
+Rules we love to share:
+- consider each method separately - what contract this method has 
+- check method arguments for contract violation in the beginning of your method 
+- keep an empty line after the arguments contract checks (preconditions)
+- keep the contract check one line long - do not disturb your code coverage
+- do not unit test the contracts 
+- use it with [NotNull] and [CanBeNull] attributes 
+
+## nullability checks
+
+The most commonly occuring exception in .NET world is `NullReferenceException`. Therefor it is good to have a strategy for dealing with null in your code. Here is a list we prefer to use:
+- 80% (maybe 90%) of our code assumes that argument, property or variable is `[NotNull]` (should never be null)
+- Nullable arguments should always be marked with `[CanBeNull]` attribute
