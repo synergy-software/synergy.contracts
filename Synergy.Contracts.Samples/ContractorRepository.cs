@@ -31,6 +31,10 @@ namespace Synergy.Contracts.Samples
             paramaters.FoundedBetween.FailIfNull(nameof(paramaters.FoundedBetween));
             paramaters.FoundedBetween.Max.FailIfNull(nameof(paramaters.FoundedBetween.Max));
 
+            if (paramaters.FoundedBetween == null)
+            {
+            }
+
             // WARN: Below is sample code with no sense at all
             return new List<Contractor>(0);
         }

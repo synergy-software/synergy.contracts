@@ -7,24 +7,84 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailNullabilityTest
     {
+        #region variable.FailIfNull(nameof(variable))
+
         [Test]
         public void FailIfNull()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => ((object)null).FailIfNull("to jest null")
-            );
+            // ARRANGE
+            object someNullObject = null;
 
-            new object().FailIfNull("to nie null");
-
-            long? itIsNull = null;
-            Assert.Throws<DesignByContractViolationException>(
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ExpressionIsAlwaysNull
-                () => itIsNull.FailIfNull(nameof(itIsNull))
+                () => someNullObject.FailIfNull(nameof(someNullObject))
             );
+
+           // ASSERT
+           Assert.That(exception.Message, Is.EqualTo("'someNullObject' is null and it shouldn't be"));
+        }
+
+        [Test]
+        public void FailIfNullOnNullableValue()
+        {
+            // ARRANGE
+            long? someNullableLong = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                () => someNullableLong.FailIfNull(nameof(someNullableLong))
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("'someNullableLong' is null and it shouldn't be"));
+        }
+
+        [Test]
+        public void FailIfNullSuccess()
+        {
+            // ARRANGE
+            var thisIsNotNull = new object();
+
+            // ACT
+            thisIsNotNull.FailIfNull(nameof(thisIsNotNull));
 
             long? itIsNotNull = 123;
             itIsNotNull.FailIfNull(nameof(itIsNotNull));
         }
+
+        [Test]
+        public void FailIfNullSuccessOnNullableValue()
+        {
+            // ARRANGE
+            long? thisIsNotNull = 123;
+
+            // ACT
+            thisIsNotNull.FailIfNull(nameof(thisIsNotNull));
+        }
+
+        [Test]
+        public void FailIfNullSample()
+        {
+            // ARRANGE
+            IContractorRepository repository = new ContractorRepository();
+            var parameters = new ContractorFilterParameters();
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                () => repository.FilterContractors(paramaters: parameters)
+            );
+
+            // ASSERT
+            Assert.That(exception, Is.Not.Null);
+            Assert.That(exception.Message, Is.EqualTo("'FoundedBetween' is null and it shouldn't be"));
+        }
+
+        #endregion
+
+        #region variable.OrFail()
 
         [Test]
         public void OrFail()
@@ -51,23 +111,7 @@ namespace Synergy.Contracts.Test.Failures
             thisCannotBeNull.OrFail();
         }
 
-        [Test]
-        public void FailIfNullSample()
-        {
-            // ARRANGE
-            IContractorRepository repository = new ContractorRepository();
-            var parameters = new ContractorFilterParameters();
-
-            // ACT
-            var exception = Assert.Throws<DesignByContractViolationException>(
-                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                () => repository.FilterContractors(paramaters: parameters)
-            );
-
-            // ASSERT
-            Assert.That(exception, Is.Not.Null);
-            Assert.That(exception.Message, Is.EqualTo("'FoundedBetween' is null and it shouldn't be"));
-        }
+        #endregion
 
         [Test]
         public void IfArgumentNull()

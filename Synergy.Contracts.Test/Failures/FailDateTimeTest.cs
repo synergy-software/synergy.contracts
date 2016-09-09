@@ -7,6 +7,8 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailDateTimeTest
     {
+        #region Fail.IfNotMidnight
+
         [Test]
         public void IfNotMidnight()
         {
@@ -52,5 +54,7 @@ namespace Synergy.Contracts.Test.Failures
             Assert.That(exception, Is.Not.Null);
             Assert.That(exception.Message, Is.EqualTo("minDate must be a midnight"));
         }
+
+        #endregion
     }
 }

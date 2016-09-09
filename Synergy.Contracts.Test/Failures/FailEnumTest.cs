@@ -6,6 +6,8 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailEnumTest
     {
+        #region Fail.BecauseEnumOutOfRange
+
         [Test]
         public void BecauseEnumOutOfRange()
         {
@@ -39,5 +41,7 @@ namespace Synergy.Contracts.Test.Failures
             Assert.That(exception, Is.Not.Null);
             Assert.That(exception.Message, Is.EqualTo("Unsupported ContractorType value: 0"));
         }
+
+        #endregion
     }
 }
