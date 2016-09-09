@@ -104,7 +104,8 @@ namespace Synergy.Contracts
             if (collection1Count != collection2Count)
                 throw Fail.Because(message, args);
 
-            bool areEquivalent = collection1.Intersect(collection2).Count() == collection1Count;
+            bool areEquivalent = collection1.Intersect(collection2)
+                                            .Count() == collection1Count;
             Fail.IfFalse(areEquivalent, message, args);
         }
 

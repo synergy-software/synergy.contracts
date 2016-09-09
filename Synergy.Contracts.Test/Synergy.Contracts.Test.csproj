@@ -42,6 +42,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="!Init\settings.cs" />
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Failures\FailStringTest.cs" />
     <Compile Include="Failures\FailBooleanTest.cs" />
     <Compile Include="Failures\FailCastableTest.cs" />

@@ -97,21 +97,56 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfNotCastable()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotCastable<IQueryable>(new object(), "wrong type 1")
+            // ARRANGE
+            var somethingNotCastable = new object();
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfNotCastable<IQueryable>(somethingNotCastable, "wrong type")
             );
 
-            Fail.IfNotCastable<IList<string>>(new List<string>(), "wrong type 2");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("wrong type"));
         }
 
         [Test]
-        public void IfNotCastableWithType()
+        public void IfNotCastableWithNull()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotCastable(new object(), typeof(IQueryable), "wrong type 1")
+            Fail.IfNotCastable<IList<string>>(null, "wrong type");
+        }
+
+        [Test]
+        public void IfNotCastableSuccess()
+        {
+            Fail.IfNotCastable<IList<string>>(new List<string>(), "wrong type");
+        }
+
+        #endregion
+
+        #region Fail.IfNotCastable()
+
+        [Test]
+        public void WeaklyTypedIfNotCastable()
+        {
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfNotCastable(new object(), typeof(IQueryable), "wrong type")
             );
 
-            Fail.IfNotCastable(new List<string>(), typeof(IList<string>), "wrong type 2");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("wrong type"));
+        }
+
+        [Test]
+        public void WeaklyTypedIfNotCastableWithNull()
+        {
+            Fail.IfNotCastable(null, typeof(IList<string>), "wrong type");
+        }
+
+        [Test]
+        public void WeaklyTypedIfNotCastableSuccess()
+        {
+            Fail.IfNotCastable(new List<string>(), typeof(IList<string>), "wrong type");
         }
 
         #endregion
@@ -121,12 +156,59 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfNullOrNotCastable()
         {
-            Fail.IfNullOrNotCastable<IList<string>>(new List<string>());
-            Fail.IfNullOrNotCastable<IList<string>>(new List<string>(), "wrong type 1");
+            // ARRANGE
+            object somethingNotCastable = new object();
 
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNullOrNotCastable<IQueryable>(new object())
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfNullOrNotCastable<IQueryable>(somethingNotCastable)
             );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Expected object of type 'System.Linq.IQueryable' but was 'System.Object'"));
+        }
+
+        [Test]
+        public void IfNullOrNotCastableWithMessage()
+        {
+            // ARRANGE
+            object somethingNotCastable = new object();
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfNullOrNotCastable<IQueryable>(somethingNotCastable, "wrong type")
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("wrong type"));
+        }
+
+        [Test]
+        public void IfNullOrNotCastableWithNull()
+        {
+            // ARRANGE
+            object somethingNotCastable = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                () => Fail.IfNullOrNotCastable<IQueryable>(somethingNotCastable)
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Expected object of type 'System.Linq.IQueryable' but was '<null>'"));
+        }
+
+        [Test]
+        public void IfNullOrNotCastableSuccess()
+        {
+            Fail.IfNullOrNotCastable<IList<string>>(new List<string>());
+        }
+
+        [Test]
+        public void IfNullOrNotCastableSuccessWithMessage()
+        {
+            Fail.IfNullOrNotCastable<IList<string>>(new List<string>(), "wrong type");
         }
 
         #endregion

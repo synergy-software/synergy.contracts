@@ -92,7 +92,8 @@ namespace Synergy.Contracts
         [AssertionMethod]
         public static void IfNullOrNotCastable<T>([CanBeNull] object value)
         {
-            Fail.IfNullOrNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
+            Fail.IfNull(value, Fail.NotCastableMessage, typeof(T), "<null>");
+            Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
         }
 
         /// <summary>

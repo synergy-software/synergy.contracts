@@ -34,24 +34,24 @@ namespace Synergy.Contracts
         /// </summary>
         /// <typeparam name="T">Type of the value to check against nullability.</typeparam>
         /// <param name="value">Value to check against nullability.</param>
-        /// <param name="memberName">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
-        /// <param name="sourceFilePath">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
-        /// <param name="sourceLineNumber">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
+        /// <param name="callerMemberName">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
+        /// <param name="callerSourceFilePath">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
+        /// <param name="callserSourceLineNumber">Parameter automatically provided by compiler. DO NOT PROVIDE IT.</param>
         /// <returns></returns>
         [ContractAnnotation("value: null => halt; value: notnull => notnull")]
         [AssertionMethod]
         [NotNull]
         public static T OrFail<T>(
             [AssertionCondition(AssertionConditionType.IS_NOT_NULL), CanBeNull] this T value,
-            [NotNull, CallerMemberName] string memberName = "",
-            [CallerFilePath] string sourceFilePath = "",
-            [CallerLineNumber] int sourceLineNumber = 0)
+            [NotNull, CallerMemberName] string callerMemberName = "",
+            [NotNull, CallerFilePath] string callerSourceFilePath = "",
+            [CallerLineNumber] int callserSourceLineNumber = 0)
         {
-            Fail.IfArgumentWhiteSpace(memberName, nameof(memberName));
-            Fail.IfArgumentWhiteSpace(sourceFilePath, nameof(sourceFilePath));
-            Fail.IfArgumentEqual(0, sourceLineNumber, nameof(sourceLineNumber));
+            Fail.IfArgumentWhiteSpace(callerMemberName, nameof(callerMemberName));
+            Fail.IfArgumentWhiteSpace(callerSourceFilePath, nameof(callerSourceFilePath));
+            Fail.IfArgumentEqual(0, callserSourceLineNumber, nameof(callserSourceLineNumber));
 
-            Fail.IfNull(value, $"Object of type {typeof(T).Name} is null in {memberName}() method [{sourceFilePath}({sourceLineNumber})]");
+            Fail.IfNull(value, $"Object of type {typeof(T).Name} is null in {callerMemberName}() method [{callerSourceFilePath}({callserSourceLineNumber})]");
 
             return value;
         }

@@ -78,14 +78,14 @@ namespace Synergy.Contracts.Test.Failures
         }
 
         [Test]
-        public void IfNotEqualNulls()
+        public void IfNotEqualSuccess()
         {
             // ACT
             Fail.IfNotEqual("s1", "s1", "values differ and should be equal");
         }
 
         [Test]
-        public void IfNotEqualSuccess()
+        public void IfNotEqualNulls()
         {
             Fail.IfNotEqual(null, null, "values differ and should be equal");
         }
