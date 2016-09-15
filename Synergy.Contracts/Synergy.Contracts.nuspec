@@ -8,11 +8,11 @@
     <owners>Synergy Marcin Celej</owners>
     <licenseUrl>https://github.com/synergy-software/synergy.contracts/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/synergy-software/synergy.contracts</projectUrl>
-    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <iconUrl>https://github.com/synergy-software/synergy.contracts/synergy.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Design by contract programming support</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright © Synergy Marcin Celej 2016</copyright>
-    <tags>Design-By-Contract Precondition Contract Code-Contract Resharper Annotations R# jetbrains.annotations design contract</tags>
+    <tags>DbC Design-By-Contract Precondition Postcondition Contract Code-Contract Resharper Annotations R# jetbrains.annotations design contract programming</tags>
   </metadata>
 </package>
