@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using Synergy.Contracts.Samples;
 
@@ -113,34 +115,92 @@ namespace Synergy.Contracts.Test.Failures
 
         #endregion
 
+        #region Fail.IfArgumentNull
+
         [Test]
-        public void IfArgumentNull()
+        [TestCase(null)]
+        public void IfArgumentNull([CanBeNull] object argumentValue)
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentNull(null, "null")
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfArgumentNull(argumentValue, nameof(argumentValue))
             );
 
-            Fail.IfArgumentNull(new object(), "nie-null");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Argument 'argumentValue' was null."));
         }
 
         [Test]
-        public void IfNotNull()
+        [TestCaseSource(nameof(FailNullabilityTest.GetNotNulls))]
+        public void IfArgumentNullSucces([NotNull] object argumentValue)
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNotNull("not null", "to nie null")
+            // ACT
+            Fail.IfArgumentNull(argumentValue, nameof(argumentValue));
+        }
+
+        [ItemNotNull]
+        private static IEnumerable<object> GetNotNulls()
+        {
+            yield return 123;
+            yield return (long?)456;
+            yield return new object();
+        }
+
+        #endregion
+
+        #region Fail.IfNotNull
+
+        [Test]
+        [TestCaseSource(nameof(FailNullabilityTest.GetNotNulls))]
+        public void IfNotNull(object argumentValue)
+        {
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfNotNull(argumentValue, "value is NOT null - something went wrong")
             );
 
-            Fail.IfNotNull(null, "to null");
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("value is NOT null - something went wrong"));
         }
+
+        [Test]
+        [TestCase(null)]
+        public void IfNotNullSucces([CanBeNull] object argumentValue)
+        {
+            // ACT
+            Fail.IfNotNull(argumentValue, "value is NOT null - something went wrong");
+        }
+
+        #endregion
+
+        #region Fail.IfNull
 
         [Test]
         public void IfNull()
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfNull(null, "to jest null")
+            // ARRANGE
+            object thisIsNull = null;
+
+            // ACT
+           var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfNull(thisIsNull, "this is null and it shouldn't be")
             );
 
-            Fail.IfNull(value: new object(), message: "to nie null");
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this is null and it shouldn't be"));
         }
+
+        [Test]
+        public void IfNullSuccess()
+        {
+            // ARRANGE
+            object thisIsNotNull = "not null";
+
+            // ACT
+            Fail.IfNull(thisIsNotNull, "this is null and it shouldn't be");
+        }
+
+        #endregion
     }
 }

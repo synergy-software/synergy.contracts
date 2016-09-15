@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 
 namespace Synergy.Contracts.Test.Failures
@@ -5,20 +6,46 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailStringTest
     {
+        #region Fail.IfArgumentEmpty
+
         [Test]
-        public void IfArgumentEmpty()
+        [TestCase(null)]
+        public void IfArgumentEmptyWithNull(string argumentValue)
         {
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentEmpty(null, "null")
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfArgumentEmpty(argumentValue, nameof(argumentValue))
             );
-
-            Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfArgumentEmpty("", "empty")
-            );
-
-            Fail.IfArgumentEmpty("nie pusty", "nie-pusty");
-            Fail.IfArgumentEmpty("  ", "bia³e-znaki");
+            
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Argument 'argumentValue' was null."));
         }
+
+        [Test]
+        [TestCase("")]
+        public void IfArgumentEmptyWithEmptyString(string argumentValue)
+        {
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                () => Fail.IfArgumentEmpty(argumentValue, nameof(argumentValue))
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("Argument 'argumentValue' was empty."));
+        }
+
+        [Test]
+        [TestCase("not empty")]
+        [TestCase(" ")]
+        public void IfArgumentEmptySuccess([NotNull] string argumentValue)
+        {
+            // ACT
+            Fail.IfArgumentEmpty(argumentValue, nameof(argumentValue));
+        }
+
+        #endregion
+
+        #region Fail.IfEmpty
 
         [Test]
         public void IfEmpty()
@@ -34,6 +61,8 @@ namespace Synergy.Contracts.Test.Failures
             Fail.IfEmpty("   ", "message");
             Fail.IfEmpty("aa", "message");
         }
+
+        #endregion
 
         [Test]
         public void IfArgumentWhiteSpace()
