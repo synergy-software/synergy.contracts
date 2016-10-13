@@ -29,18 +29,18 @@ namespace Synergy.Contracts
             return value;
         }
 
-        ///// <summary>
-        ///// Template for expanding variable.FailIfNull(nameof(variable))
-        ///// </summary>
-        ///// <typeparam name="T">Type of the value to check against nullability.</typeparam>
-        ///// <param name="value">Value to check against nullability.</param>
-        //[SourceTemplate]
-        //[UsedImplicitly]
-        //// ReSharper disable once InconsistentNaming
-        //public static void fin<T>(this object value)
-        //{
-        //    value.FailIfNull(nameof(value));
-        //}
+        /// <summary>
+        /// Template for expanding <c>variable.FailIfNull(nameof(variable))</c>.
+        /// Type <c>variable.fin</c> and press TAB and let Resharper complete the template.
+        /// </summary>
+        /// <param name="value">Value to check against nullability.</param>
+        [SourceTemplate]
+        [UsedImplicitly]
+        // ReSharper disable once InconsistentNaming
+        public static void fin(this object value)
+        {
+            value.FailIfNull(nameof(value));
+        }
 
         /// <summary>
         /// Throws exception when provided value is <see langword="null"/>.
@@ -89,16 +89,16 @@ namespace Synergy.Contracts
         }
 
         /// <summary>
-        /// Template for expanding Fail.IfArgumentNull(value, nameof(value));
+        /// Template for expanding Fail.IfArgumentNull(argument, nameof(argument));
+        /// Type <c>argument.fian</c> and press TAB and let Resharper complete the template.
         /// </summary>
-        /// <typeparam name="T">Type of the value to check against nullability.</typeparam>
-        /// <param name="value">Value to check against nullability.</param>
+        /// <param name="argumentValue">Value of the argument to check against being <see langword="null" />.</param>
         [SourceTemplate]
         [UsedImplicitly]
         // ReSharper disable once InconsistentNaming
-        public static void fian<T>([CanBeNull] this object value)
+        public static void fian([CanBeNull] this object argumentValue)
         {
-            Fail.IfArgumentNull(value, nameof(value));
+            Fail.IfArgumentNull(argumentValue, nameof(argumentValue));
         }
 
         /// <summary>
