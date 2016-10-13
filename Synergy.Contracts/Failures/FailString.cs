@@ -26,6 +26,19 @@ namespace Synergy.Contracts
         }
 
         /// <summary>
+        /// Template for expanding Fail.IfArgumentEmpty(argument, nameof(argument));
+        /// Type <c>argument.fiae</c> and press TAB and let Resharper complete the template.
+        /// </summary>
+        /// <param name="argumentValue">Value of the argument to check against <see langword="null"/> or emptiness.</param>
+        [SourceTemplate]
+        [UsedImplicitly]
+        // ReSharper disable once InconsistentNaming
+        public static void fiae([CanBeNull] this string argumentValue)
+        {
+            Fail.IfArgumentEmpty(argumentValue, nameof(argumentValue));
+        }
+
+        /// <summary>
         /// Throws exception if the specified value is <see langword="null"/> or empty string ("").
         /// </summary>
         /// <param name="value">Value to check against <see langword="null"/> or emptiness.</param>
