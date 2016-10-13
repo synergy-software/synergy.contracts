@@ -26,7 +26,7 @@ namespace Synergy.Contracts
         }
 
         /// <summary>
-        /// Template for expanding Fail.IfArgumentEmpty(argument, nameof(argument));
+        /// Template for expanding <c>Fail.IfArgumentEmpty(argument, nameof(argument));</c>
         /// Type <c>argument.fiae</c> and press TAB and let Resharper complete the template.
         /// </summary>
         /// <param name="argumentValue">Value of the argument to check against <see langword="null"/> or emptiness.</param>
@@ -77,6 +77,19 @@ namespace Synergy.Contracts
 
             if (string.IsNullOrWhiteSpace(argumentValue))
                 throw Fail.Because("Argument '{0}' was empty.", argumentName);
+        }
+
+        /// <summary>
+        /// Template for expanding <c>Fail.IfArgumentWhiteSpace(argument, nameof(argument));</c>
+        /// Type <c>argument.fiaw</c> and press TAB and let Resharper complete the template.
+        /// </summary>
+        /// <param name="argumentValue">Value of the argument to check.</param>
+        [SourceTemplate]
+        [UsedImplicitly]
+        // ReSharper disable once InconsistentNaming
+        public static void fiaw([CanBeNull] this string argumentValue)
+        {
+            Fail.IfArgumentWhiteSpace(argumentValue, nameof(argumentValue));
         }
 
         /// <summary>

@@ -89,7 +89,7 @@ namespace Synergy.Contracts
         }
 
         /// <summary>
-        /// Template for expanding Fail.IfArgumentNull(argument, nameof(argument));
+        /// Template for expanding <c>Fail.IfArgumentNull(argument, nameof(argument));</c>
         /// Type <c>argument.fian</c> and press TAB and let Resharper complete the template.
         /// </summary>
         /// <param name="argumentValue">Value of the argument to check against being <see langword="null" />.</param>
