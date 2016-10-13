@@ -76,7 +76,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                () => repository.FilterContractors(paramaters: parameters)
+                () => repository.FilterContractors(parameters)
             );
 
             // ASSERT

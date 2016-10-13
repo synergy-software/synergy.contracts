@@ -48,7 +48,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                () => contractorRepository.GetContractorsAged(minDate: ratherNotMidnight, maxDate: null));
+                () => contractorRepository.GetContractorsAged(ratherNotMidnight, null));
 
             // ASSERT
             Assert.That(exception, Is.Not.Null);

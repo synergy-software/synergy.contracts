@@ -14,7 +14,7 @@ namespace Synergy.Contracts
         [ContractAnnotation("value: false => halt")]
         [AssertionMethod]
         public static void IfFalse(
-            [AssertionCondition(conditionType: AssertionConditionType.IS_FALSE)] bool value,
+            [AssertionCondition(AssertionConditionType.IS_FALSE)] bool value,
             [NotNull] string message,
             [NotNull] params object[] args)
         {
@@ -36,7 +36,7 @@ namespace Synergy.Contracts
         [ContractAnnotation("value: true => halt")]
         [AssertionMethod]
         public static void IfTrue(
-            [AssertionCondition(conditionType: AssertionConditionType.IS_TRUE)] bool value,
+            [AssertionCondition(AssertionConditionType.IS_TRUE)] bool value,
             [NotNull] string message,
             [NotNull] params object[] args)
         {

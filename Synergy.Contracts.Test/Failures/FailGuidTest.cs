@@ -39,7 +39,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                () => contractorRepository.FindContractorByGuid(id: id)
+                () => contractorRepository.FindContractorByGuid(id)
             );
 
             // ASSERT

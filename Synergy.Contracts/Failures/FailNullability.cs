@@ -21,7 +21,7 @@ namespace Synergy.Contracts
             [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this T value,
             [NotNull] string name)
         {
-            Fail.RequiresArgumentName(argumentName: name);
+            Fail.RequiresArgumentName(name);
 
             if (value == null)
                 throw Fail.Because("'{0}' is null and it shouldn't be", name);
@@ -82,7 +82,7 @@ namespace Synergy.Contracts
             [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] object argumentValue,
             [NotNull] string argumentName)
         {
-            Fail.RequiresArgumentName(argumentName: argumentName);
+            Fail.RequiresArgumentName(argumentName);
 
             if (argumentValue == null)
                 throw Fail.Because("Argument '{0}' was null.", argumentName);

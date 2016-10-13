@@ -14,7 +14,7 @@ namespace Synergy.Contracts
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
         public static void IfArgumentEmpty(
-            [CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue,
+            [CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] string argumentValue,
             [NotNull] string argumentName)
         {
             Fail.RequiresArgumentName(argumentName);
@@ -55,14 +55,14 @@ namespace Synergy.Contracts
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
         public static void IfArgumentWhiteSpace(
-            [CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue,
+            [CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] string argumentValue,
             [NotNull] string argumentName)
         {
             Fail.RequiresArgumentName(argumentName);
 
             Fail.IfArgumentNull(argumentValue, argumentName);
 
-            if (string.IsNullOrWhiteSpace(value: argumentValue))
+            if (string.IsNullOrWhiteSpace(argumentValue))
                 throw Fail.Because("Argument '{0}' was empty.", argumentName);
         }
 
