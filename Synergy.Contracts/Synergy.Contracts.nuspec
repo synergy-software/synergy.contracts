@@ -3,7 +3,7 @@
   <metadata>
     <id>Synergy.Contracts</id>
     <version>$version$</version>
-    <title>Design by contract programming support</title>
+    <title>Synergy.Contracts</title>
     <authors>Synergy Marcin Celej</authors>
     <owners>Synergy Marcin Celej</owners>
     <licenseUrl>https://github.com/synergy-software/synergy.contracts/blob/master/LICENSE</licenseUrl>
