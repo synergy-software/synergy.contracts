@@ -20,7 +20,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ExpressionIsAlwaysNull
-                () => someNullObject.FailIfNull(nameof(someNullObject))
+                () => someNullObject.FailIfNull("'{0}' is null and it shouldn't be", nameof(someNullObject))
             );
 
            // ASSERT
@@ -36,7 +36,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ExpressionIsAlwaysNull
-                () => someNullableLong.FailIfNull(nameof(someNullableLong))
+                () => someNullableLong.FailIfNull("'{0}' is null and it shouldn't be", nameof(someNullableLong))
             );
 
             // ASSERT
@@ -97,7 +97,7 @@ namespace Synergy.Contracts.Test.Failures
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
                 // ReSharper disable once ExpressionIsAlwaysNull
-                () => thisMustBeNull.OrFail());
+                () => thisMustBeNull.OrFail(nameof(thisMustBeNull)));
 
             // ASSERT
             Console.WriteLine(exception.Message);
@@ -110,7 +110,7 @@ namespace Synergy.Contracts.Test.Failures
             var thisCannotBeNull = "i am not null";
 
             // ACT
-            thisCannotBeNull.OrFail();
+            thisCannotBeNull.OrFail(nameof(thisCannotBeNull));
         }
 
         #endregion

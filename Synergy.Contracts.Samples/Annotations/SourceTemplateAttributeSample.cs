@@ -21,6 +21,13 @@ namespace Synergy.Contracts.Samples.Annotations
             Console.WriteLine("$newguid$");
         }
 
+        [SourceTemplate]
+        public static void Bar<T>(this T entity)
+        {
+            /*$ var $entity$Id = entity.GetId();;
+            DoSomething($entity$Id); */
+        }
+
         private static void test()
         {
             var enumerable = new List<string>();
@@ -28,8 +35,7 @@ namespace Synergy.Contracts.Samples.Annotations
             //enumerable.forEach
             //enumerable.newGuid
 
-            string s = null;
-            //s.fi
+            //enumerable.Bar
         }
     }
 }

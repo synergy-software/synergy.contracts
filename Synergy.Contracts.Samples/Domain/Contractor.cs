@@ -58,6 +58,16 @@ namespace Synergy.Contracts.Samples.Domain
             }
         }
 
+        [CanBeNull]
+        public Address Address { get; set; }
+
+        [NotNull]
+        public string GetCity()
+        {
+            return this.Address.FailIfNull(nameof(this.Address))
+                       .City.FailIfNull(nameof(this.Address.City));
+        }
+
         public void SetPersonName([NotNull] string firstName, [NotNull] string lastName)
         {
             Fail.IfArgumentEmpty(firstName, nameof(firstName));
