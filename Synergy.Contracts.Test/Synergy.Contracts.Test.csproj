@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="!Init\settings.cs" />
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    <Compile Include="..\SynergyAssemblyInfo.cs">
+      <Link>Properties\SynergyAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Failures\FailStringTest.cs" />
     <Compile Include="Failures\FailBooleanTest.cs" />

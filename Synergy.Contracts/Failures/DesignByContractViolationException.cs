@@ -31,7 +31,7 @@ namespace Synergy.Contracts
         /// <summary>
         /// Serialization required constructor.
         /// </summary>
-        protected DesignByContractViolationException(SerializationInfo info, StreamingContext context) :
+        protected DesignByContractViolationException([NotNull] SerializationInfo info, StreamingContext context) :
             base(info, context)
         {
         }

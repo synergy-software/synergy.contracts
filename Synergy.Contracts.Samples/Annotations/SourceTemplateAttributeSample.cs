@@ -7,7 +7,7 @@ namespace Synergy.Contracts.Samples.Annotations
     public static class SourceTemplateAttributeSample
     {
         [SourceTemplate]
-        public static void forEach<T>(this IEnumerable<T> xs)
+        public static void forEach<T>([NotNull] this IEnumerable<T> xs)
         {
             foreach (T x in xs)
             {

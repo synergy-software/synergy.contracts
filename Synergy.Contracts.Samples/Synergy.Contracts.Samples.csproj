@@ -38,8 +38,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    <Compile Include="..\SynergyAssemblyInfo.cs">
+      <Link>Properties\SynergyAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Annotations\SourceTemplateAttributeSample.cs" />
     <Compile Include="ContractorRepository.cs" />
