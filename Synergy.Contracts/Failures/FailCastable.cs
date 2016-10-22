@@ -4,10 +4,12 @@ using JetBrains.Annotations;
 
 namespace Synergy.Contracts
 {
-    //TODO: Add [AssertionCondition] below
+    // TODO:mace (from:mace @ 22-10-2016): Add [AssertionCondition] below
     public static partial class Fail
     {
-        private const string NotCastableMessage = "Expected object of type '{0}' but was '{1}'";
+        private const string notCastableMessage = "Expected object of type '{0}' but was '{1}'";
+        private const string notCastableMessageWithName = "Expected {0} of type '{1}' but was '{2}'";
+
 
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type. It also returns the casted object or <see langword="null"/>.
@@ -15,18 +17,19 @@ namespace Synergy.Contracts
         /// </summary>
         /// <typeparam name="T">The expected type.</typeparam>
         /// <param name="value">Value to check if it can be casted to specified type.</param>
+        /// <param name="name">Name of the object to cast.</param>
         /// <returns>The casted object (or <see langword="null"/>).</returns>
         [ContractAnnotation("value: null => null; value: notnull => notnull")]
         [CanBeNull]
         [AssertionMethod]
-        public static T AsOrFail<T>([CanBeNull] this object value)
+        public static T AsOrFail<T>([CanBeNull] this object value, [CanBeNull] string name = null)
         {
-            Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
+            Fail.IfNotCastable<T>(value, Fail.notCastableMessageWithName, name ?? "object", typeof(T), value);
 
             return (T) value;
         }
 
-        //TODO: public static void Fail.IfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
+        // TODO:mace (from:mace @ 22-10-2016): public static void Fail.IfArgumentNotCastable<T>([CanBeNull, AssertionCondition(conditionType: AssertionConditionType.IS_NOT_NULL)] string argumentValue)
 
         /// <summary>
         /// Throws exception when specified value is not castable to the specified type. It also returns the casted object.
@@ -34,14 +37,15 @@ namespace Synergy.Contracts
         /// </summary>
         /// <typeparam name="T">The expected type.</typeparam>
         /// <param name="value">Value to check if it can be casted to specified type.</param>
+        /// <param name="name">Name of the object to cast.</param>
         /// <returns>The casted object. This method will NEVER return <see langword="null"/>.</returns>
         [ContractAnnotation("value: null => halt; value: notnull => notnull")]
         [NotNull]
         [AssertionMethod]
-        public static T CastOrFail<T>([CanBeNull] this object value)
+        public static T CastOrFail<T>([CanBeNull] this object value, [CanBeNull] string name = null)
         {
-            Fail.IfNull(value, Fail.NotCastableMessage, typeof(T), "null");
-            Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
+            Fail.IfNull(value, Fail.notCastableMessageWithName, name ?? "object", typeof(T), "null");
+            Fail.IfNotCastable<T>(value, Fail.notCastableMessageWithName, name ?? "object", typeof(T), value);
             return (T) value;
         }
 
@@ -92,8 +96,8 @@ namespace Synergy.Contracts
         [AssertionMethod]
         public static void IfNullOrNotCastable<T>([CanBeNull] object value)
         {
-            Fail.IfNull(value, Fail.NotCastableMessage, typeof(T), "<null>");
-            Fail.IfNotCastable<T>(value, Fail.NotCastableMessage, typeof(T), value);
+            Fail.IfNull(value, Fail.notCastableMessage, typeof(T), "<null>");
+            Fail.IfNotCastable<T>(value, Fail.notCastableMessage, typeof(T), value);
         }
 
         /// <summary>
