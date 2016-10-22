@@ -46,6 +46,6 @@ namespace Synergy.Contracts
             Fail.IfEqual(Guid.Empty, value, "Argument '{0}' is an empty Guid.", argumentName);
         }
 
-        // TODO: guid.FailIfEmpty
+        // TODO:mace (from:mace @ 22-10-2016): guid.FailIfEmpty
     }
 }

@@ -183,6 +183,7 @@ namespace Synergy.Contracts.Test.Failures
 
             // ACT
            var exception = Assert.Throws<DesignByContractViolationException>(
+               // ReSharper disable once ExpressionIsAlwaysNull
                 () => Fail.IfNull(thisIsNull, "this is null and it shouldn't be")
             );
 

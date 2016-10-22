@@ -38,7 +38,7 @@ namespace Synergy.Contracts
                 throw Fail.Because("Argument '{0}' is equal to {1} and it should NOT be.", argumentName, unexpected);
         }
 
-        // TODO: a.FailIfEqual(b)
+        // TODO:mace (from:mace @ 22-10-2016): a.FailIfEqual(b)
 
         /// <summary>
         /// Throws exception when two values are NOT equal. 
@@ -58,7 +58,7 @@ namespace Synergy.Contracts
                 throw Fail.Because(message, args);
         }
 
-        // TODO: IfArgumentNotEqual
-        // TODO: a.FailIfNotEqual(b)
+        // TODO:mace (from:mace @ 22-10-2016): IfArgumentNotEqual
+        // TODO:mace (from:mace @ 22-10-2016): a.FailIfNotEqual(b)
     }
 }

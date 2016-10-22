@@ -37,6 +37,6 @@ namespace Synergy.Contracts
             Fail.IfNotEqual(dateTime.Date, dateTime, message, args);
         }
 
-        //TODO: variable.FailIfNotMidnight(nameof(variable))
+        // TODO:mace (from:mace @ 22-10-2016): variable.FailIfNotMidnight(nameof(variable))
     }
 }

@@ -29,7 +29,7 @@ namespace Synergy.Contracts
                 throw Fail.Because("Collection '{0}' should not be empty but it is.", collectionName);
         }
 
-        //TODO: collection.FailIfEmpty(nameof(collection))
+        // TODO:mace (from:mace @ 22-10-2016): collection.FailIfEmpty(nameof(collection))
 
         /// <summary>
         /// Throws exception when the collection contains null.
@@ -75,7 +75,7 @@ namespace Synergy.Contracts
             Fail.IfNotNull(element, message, args);
         }
 
-        //TODO: public static void IfCollectionDoesNotContain<T>([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] IEnumerable<T> collection,) 
+        // TODO:mace (from:mace @ 22-10-2016) public static void IfCollectionDoesNotContain<T>([CanBeNull, AssertionCondition(AssertionConditionType.IS_NOT_NULL)] IEnumerable<T> collection,) 
 
         /// <summary>
         /// Throws exception when the specified collections are not equivalent. Equivalent collection contain the same elements in any order.
@@ -99,13 +99,16 @@ namespace Synergy.Contracts
             Fail.IfArgumentNull(collection1, nameof(collection1));
             Fail.IfArgumentNull(collection2, nameof(collection2));
 
-            int collection1Count = collection1.Count();
-            int collection2Count = collection2.Count();
+            IEnumerable<T> list1 = collection1 as IList<T> ?? collection1.ToList();
+            IEnumerable<T> list2 = collection2 as IList<T> ?? collection2.ToList();
+
+            int collection1Count = list1.Count();
+            int collection2Count = list2.Count();
             if (collection1Count != collection2Count)
                 throw Fail.Because(message, args);
 
-            bool areEquivalent = collection1.Intersect(collection2)
-                                            .Count() == collection1Count;
+            bool areEquivalent = list1.Intersect(list2)
+                                      .Count() == collection1Count;
             Fail.IfFalse(areEquivalent, message, args);
         }
 
