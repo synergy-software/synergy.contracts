@@ -77,20 +77,24 @@ namespace Synergy.Contracts.Test.Failures
         [ItemNotNull, NotNull]
         private static IEnumerable GetEmptyGuid()
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             yield return Guid.Empty;
         }
 
         [ItemNotNull, NotNull]
         private static IEnumerable GetNewGuid()
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             yield return Guid.NewGuid();
         }
 
         [Explicit, Test]
         public void WriteEmptyGuidsToConsole()
         {
-            Console.WriteLine("Guid.Empty = " + Guid.Empty);
-            Console.WriteLine("new Guid() = " + new Guid());
+            // ReSharper disable RedundantToStringCallForValueType
+            Console.WriteLine("Guid.Empty = " + Guid.Empty.ToString());
+            Console.WriteLine("new Guid() = " + new Guid().ToString());
+            // ReSharper restore RedundantToStringCallForValueType
         }
     }
 }

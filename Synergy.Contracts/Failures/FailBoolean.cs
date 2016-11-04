@@ -18,7 +18,10 @@ namespace Synergy.Contracts
             [AssertionCondition(AssertionConditionType.IS_FALSE)] bool value,
             [NotNull] string message)
         {
-            Fail.IfFalse(value, message, Fail.nullArgs);
+            Fail.RequiresMessage(message);
+
+            if (value == false)
+                throw Fail.Because(message);
         }
 
         /// <summary>
@@ -35,7 +38,10 @@ namespace Synergy.Contracts
             [NotNull] string message,
             [CanBeNull] TArgument1 arg1)
         {
-            Fail.IfFalse(value, message, new object[] { arg1 });
+            Fail.RequiresMessage(message);
+
+            if (value == false)
+                throw Fail.Because(message, arg1);
         }
 
         /// <summary>
@@ -54,7 +60,10 @@ namespace Synergy.Contracts
             [CanBeNull] TArgument1 arg1,
             [CanBeNull] TArgument2 arg2)
         {
-            Fail.IfFalse(value, message, new object[] { arg1, arg2});
+            Fail.RequiresMessage(message);
+
+            if (value == false)
+                throw Fail.Because(message, arg1, arg2);
         }
 
         /// <summary>
@@ -75,7 +84,10 @@ namespace Synergy.Contracts
             [CanBeNull] TArgument2 arg2,
             [CanBeNull] TArgument3 arg3)
         {
-            Fail.IfFalse(value, message, new object[] { arg1, arg2, arg3 });
+            Fail.RequiresMessage(message);
+
+            if (value == false)
+                throw Fail.Because(message, arg1, arg2, arg3);
         }
 
         /// <summary>
@@ -90,9 +102,9 @@ namespace Synergy.Contracts
         public static void IfFalse(
             [AssertionCondition(AssertionConditionType.IS_FALSE)] bool value,
             [NotNull] string message,
-            [CanBeNull] params object[] args)
+            [NotNull] params object[] args)
         {
-            Fail.RequiresMessage(message);
+            Fail.RequiresMessage(message, args);
 
             if (value == false)
                 throw Fail.Because(message, args);
@@ -101,6 +113,92 @@ namespace Synergy.Contracts
         #endregion
 
         // TODO:mace (from:mace @ 22-10-2016): variable.FailIfFalse(nameof(variable))
+
+        #region Fail.IfTrue
+
+        /// <summary>
+        /// Throws exception when checked value is <see langword="true" />.
+        /// </summary>
+        /// <param name="value">The value checked against being <see langword="true" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: true => halt")]
+        [AssertionMethod]
+        public static void IfTrue(
+            [AssertionCondition(AssertionConditionType.IS_TRUE)] bool value,
+            [NotNull] string message)
+        {
+            Fail.RequiresMessage(message);
+
+            if (value)
+                throw Fail.Because(message);
+        }
+
+        /// <summary>
+        /// Throws exception when checked value is <see langword="true" />.
+        /// </summary>
+        /// <param name="value">The value checked against being <see langword="true" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Meassege argument 1</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: true => halt")]
+        [AssertionMethod]
+        public static void IfTrue<TArgument1>(
+            [AssertionCondition(AssertionConditionType.IS_TRUE)] bool value,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1)
+        {
+            Fail.RequiresMessage(message);
+
+            if (value)
+                throw Fail.Because(message, arg1);
+        }
+
+        /// <summary>
+        /// Throws exception when checked value is <see langword="true" />.
+        /// </summary>
+        /// <param name="value">The value checked against being <see langword="true" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Meassege argument 1</param>
+        /// <param name="arg2">Meassege argument 2</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: true => halt")]
+        [AssertionMethod]
+        public static void IfTrue<TArgument1, TArgument2>(
+            [AssertionCondition(AssertionConditionType.IS_TRUE)] bool value,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1,
+            [CanBeNull] TArgument2 arg2)
+        {
+            Fail.RequiresMessage(message);
+
+            if (value)
+                throw Fail.Because(message, arg1, arg2);
+        }
+
+        /// <summary>
+        /// Throws exception when checked value is <see langword="true" />.
+        /// </summary>
+        /// <param name="value">The value checked against being <see langword="true" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Meassege argument 1</param>
+        /// <param name="arg2">Meassege argument 2</param>
+        /// <param name="arg3">Meassege argument 3</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: true => halt")]
+        [AssertionMethod]
+        public static void IfTrue<TArgument1, TArgument2, TArgument3>(
+            [AssertionCondition(AssertionConditionType.IS_TRUE)] bool value,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1,
+            [CanBeNull] TArgument2 arg2,
+            [CanBeNull] TArgument3 arg3)
+        {
+            Fail.RequiresMessage(message);
+
+            if (value)
+                throw Fail.Because(message, arg1, arg2, arg3);
+        }
 
         /// <summary>
         /// Throws exception when checked value is <see langword="true" />.
@@ -121,6 +219,8 @@ namespace Synergy.Contracts
             if (value)
                 throw Fail.Because(message, args);
         }
+
+        #endregion
 
         // TODO:mace (from:mace @ 22-10-2016): variable.FailIfTrue(nameof(variable))
     }

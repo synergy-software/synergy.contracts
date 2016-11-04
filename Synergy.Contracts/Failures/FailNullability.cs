@@ -112,7 +112,10 @@ namespace Synergy.Contracts
             [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
             [NotNull] string message)
         {
-            Fail.IfNull(value, message, Fail.nullArgs);
+            Fail.RequiresMessage(message);
+
+            if (value == null)
+                throw Fail.Because(message);
         }
 
         /// <summary>
@@ -129,7 +132,10 @@ namespace Synergy.Contracts
             [NotNull] string message,
             [CanBeNull] TArgument1 arg1)
         {
-            Fail.IfNull(value, message, new object[] { arg1 });
+            Fail.RequiresMessage(message);
+
+            if (value == null)
+                throw Fail.Because(message, arg1);
         }
 
         /// <summary>
@@ -148,7 +154,10 @@ namespace Synergy.Contracts
             [CanBeNull] TArgument1 arg1,
             [CanBeNull] TArgument2 arg2 )
         {
-            Fail.IfNull(value, message, new object[] { arg1, arg2 });
+            Fail.RequiresMessage(message);
+
+            if (value == null)
+                throw Fail.Because(message, arg1, arg2);
         }
 
         /// <summary>
@@ -169,7 +178,10 @@ namespace Synergy.Contracts
             [CanBeNull] TArgument2 arg2,
             [CanBeNull] TArgument3 arg3)
         {
-            Fail.IfNull(value, message, new object[] {arg1, arg2, arg3});
+            Fail.RequiresMessage(message);
+
+            if (value == null)
+                throw Fail.Because(message, arg1, arg2, arg3);
         }
 
         /// <summary>
@@ -184,9 +196,9 @@ namespace Synergy.Contracts
         public static void IfNull<T>(
             [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
             [NotNull] string message,
-            [CanBeNull] params object[] args)
+            [NotNull] params object[] args)
         {
-            Fail.RequiresMessage(message);
+            Fail.RequiresMessage(message, args);
 
             if (value == null)
                 throw Fail.Because(message, args);

@@ -23,6 +23,7 @@ namespace Synergy.Contracts.Test.Failures
         public void BecauseWith1Argument()
         {
             // ACT
+            // ReSharper disable once HeapView.BoxingAllocation
             DesignByContractViolationException exception = Fail.Because("Always {0}", 1);
 
             // ASSERT
@@ -34,6 +35,7 @@ namespace Synergy.Contracts.Test.Failures
         public void BecauseWith2Arguments()
         {
             // ACT
+            // ReSharper disable once HeapView.BoxingAllocation
             DesignByContractViolationException exception = Fail.Because("Always {0} {1}", "fails", 1);
 
             // ASSERT
@@ -45,6 +47,7 @@ namespace Synergy.Contracts.Test.Failures
         public void BecauseWith3Arguments()
         {
             // ACT
+            // ReSharper disable once HeapView.BoxingAllocation
             DesignByContractViolationException exception = Fail.Because("Always {0} {1} {2}", "fails", 1, "times");
 
             // ASSERT
