@@ -4,6 +4,96 @@ namespace Synergy.Contracts
 {
     public static partial class Fail
     {
+        #region Fail.IfEqual()
+
+        /// <summary>
+        /// Throws exception when two values are equal. 
+        /// <para>REMARKS: If one of the values is <see langword="null" /> the other one CANNOT be <see langword="null" />.</para>
+        /// </summary>
+        /// <param name="unexpected">The unexpected value.</param>
+        /// <param name="actual">The actual value to be checked.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        [StringFormatMethod("message")]
+        [AssertionMethod]
+        public static void IfEqual<TExpected, TActual>([CanBeNull] TExpected unexpected,
+            [CanBeNull] TActual actual,
+            [NotNull] string message)
+        {
+            Fail.RequiresMessage(message);
+
+            if (object.Equals(unexpected, actual))
+                throw Fail.Because(message);
+        }
+
+        /// <summary>
+        /// Throws exception when two values are equal. 
+        /// <para>REMARKS: If one of the values is <see langword="null" /> the other one CANNOT be <see langword="null" />.</para>
+        /// </summary>
+        /// <param name="unexpected">The unexpected value.</param>
+        /// <param name="actual">The actual value to be checked.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Message argument 1</param>
+        [StringFormatMethod("message")]
+        [AssertionMethod]
+        public static void IfEqual<TExpected, TActual, TArgument1>([CanBeNull] TExpected unexpected,
+            [CanBeNull] TActual actual,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1)
+        {
+            Fail.RequiresMessage(message);
+
+            if (object.Equals(unexpected, actual))
+                throw Fail.Because(message, arg1);
+        }
+
+        /// <summary>
+        /// Throws exception when two values are equal. 
+        /// <para>REMARKS: If one of the values is <see langword="null" /> the other one CANNOT be <see langword="null" />.</para>
+        /// </summary>
+        /// <param name="unexpected">The unexpected value.</param>
+        /// <param name="actual">The actual value to be checked.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Message argument 1</param>
+        /// <param name="arg2">Message argument 2</param>
+        [StringFormatMethod("message")]
+        [AssertionMethod]
+        public static void IfEqual<TExpected, TActual, TArgument1, TArgument2>([CanBeNull] TExpected unexpected,
+            [CanBeNull] TActual actual,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1,
+            [CanBeNull] TArgument2 arg2)
+        {
+            Fail.RequiresMessage(message);
+
+            if (object.Equals(unexpected, actual))
+                throw Fail.Because(message, arg1, arg2);
+        }
+
+        /// <summary>
+        /// Throws exception when two values are equal. 
+        /// <para>REMARKS: If one of the values is <see langword="null" /> the other one CANNOT be <see langword="null" />.</para>
+        /// </summary>
+        /// <param name="unexpected">The unexpected value.</param>
+        /// <param name="actual">The actual value to be checked.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Message argument 1</param>
+        /// <param name="arg2">Message argument 2</param>
+        /// <param name="arg3">Message argument 3</param>
+        [StringFormatMethod("message")]
+        [AssertionMethod]
+        public static void IfEqual<TExpected, TActual, TArgument1, TArgument2, TArgument3>([CanBeNull] TExpected unexpected,
+            [CanBeNull] TActual actual,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1,
+            [CanBeNull] TArgument2 arg2,
+            [CanBeNull] TArgument3 arg3)
+        {
+            Fail.RequiresMessage(message);
+
+            if (object.Equals(unexpected, actual))
+                throw Fail.Because(message, arg1, arg2, arg3);
+        }
+
         /// <summary>
         /// Throws exception when two values are equal. 
         /// <para>REMARKS: If one of the values is <see langword="null" /> the other one CANNOT be <see langword="null" />.</para>
@@ -21,6 +111,8 @@ namespace Synergy.Contracts
             if (object.Equals(unexpected, actual))
                 throw Fail.Because(message, args);
         }
+
+        #endregion
 
         /// <summary>
         /// Throws exception when argument value is equal to the <paramref name="unexpected"/> value.
