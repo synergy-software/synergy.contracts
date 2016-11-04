@@ -123,7 +123,7 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="value">Value to check against being <see langword="null" />.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        /// <param name="arg1">Meassege argument 1</param>
+        /// <param name="arg1">Message argument 1</param>
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
@@ -143,8 +143,8 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="value">Value to check against being <see langword="null" />.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        /// <param name="arg1">Meassege argument 1</param>
-        /// <param name="arg2">Meassege argument 2</param>
+        /// <param name="arg1">Message argument 1</param>
+        /// <param name="arg2">Message argument 2</param>
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
@@ -165,9 +165,9 @@ namespace Synergy.Contracts
         /// </summary>
         /// <param name="value">Value to check against being <see langword="null" />.</param>
         /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
-        /// <param name="arg1">Meassege argument 1</param>
-        /// <param name="arg2">Meassege argument 2</param>
-        /// <param name="arg3">Meassege argument 3</param>
+        /// <param name="arg1">Message argument 1</param>
+        /// <param name="arg2">Message argument 2</param>
+        /// <param name="arg3">Message argument 3</param>
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
