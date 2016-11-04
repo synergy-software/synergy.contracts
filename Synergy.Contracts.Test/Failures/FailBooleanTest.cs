@@ -8,7 +8,7 @@ namespace Synergy.Contracts.Test.Failures
         #region Fail.IfFalse
 
         [Test]
-        public void IfFalse()
+        public void IfFalseWith0Arguments()
         {
             // ARRANGE
             bool someFalseValue = false;
@@ -21,6 +21,71 @@ namespace Synergy.Contracts.Test.Failures
 
             // ASSERT
             Assert.That(exception.Message, Is.EqualTo("this should be true"));
+        }
+
+        [Test]
+        public void IfFalseWith1Arguments()
+        {
+            // ARRANGE
+            bool someFalseValue = false;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                () => Fail.IfFalse(someFalseValue, "this should be true {0}", 1)
+                );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this should be true 1"));
+        }
+
+        [Test]
+        public void IfFalseWith2Arguments()
+        {
+            // ARRANGE
+            bool someFalseValue = false;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                () => Fail.IfFalse(someFalseValue, "this should be true {0} {1}", 1, "wow")
+                );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this should be true 1 wow"));
+        }
+
+        [Test]
+        public void IfFalseWith3Arguments()
+        {
+            // ARRANGE
+            bool someFalseValue = false;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                () => Fail.IfFalse(someFalseValue, "this should be true {0} {1} {2}", 1, "wow", "yep")
+                );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this should be true 1 wow yep"));
+        }
+
+        [Test]
+        public void IfFalseWithNArguments()
+        {
+            // ARRANGE
+            bool someFalseValue = false;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                // ReSharper disable once HeapView.BoxingAllocation
+                () => Fail.IfFalse(someFalseValue, "this should be true {0} {1} {2} {3}", 1, "wow", "yep", "bad")
+                );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this should be true 1 wow yep bad"));
         }
 
         [Test]
