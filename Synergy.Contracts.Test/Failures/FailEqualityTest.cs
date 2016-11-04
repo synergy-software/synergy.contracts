@@ -22,9 +22,15 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfEqualNulls()
         {
+            // ARRANGE
+            object o1 = null;
+            object o2 = null;
+
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(
-                () => Fail.IfEqual(null, null, "values are equal and shouldn't be")
+                // ReSharper disable ExpressionIsAlwaysNull
+                () => Fail.IfEqual(o1, o2, "values are equal and shouldn't be")
+                // ReSharper restore ExpressionIsAlwaysNull
             );
 
             // ASSERT
@@ -87,7 +93,12 @@ namespace Synergy.Contracts.Test.Failures
         [Test]
         public void IfNotEqualNulls()
         {
-            Fail.IfNotEqual(null, null, "values differ and should be equal");
+            // ARRANGE
+            object o1 = null;
+            object o2 = null;
+
+            // ACT
+            Fail.IfNotEqual(o1, o2, "values differ and should be equal");
         }
 
         #endregion

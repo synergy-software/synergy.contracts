@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace Synergy.Contracts
 {
@@ -30,18 +28,20 @@ namespace Synergy.Contracts
         /// </code>
         /// </example>
         [NotNull, Pure]
-        public static DesignByContractViolationException BecauseEnumOutOfRange([NotNull] Enum value)
+        public static DesignByContractViolationException BecauseEnumOutOfRange<T>(T value) where T:struct
         {
-            Fail.RequiresEnumValue(value);
+            //Fail.RequiresEnumValue(value);
 
-            return new DesignByContractViolationException($"Unsupported {value.GetType() .Name} value: {value}");
+            string enumType = typeof(T).Name;
+            string enumName = value.ToString();
+            return new DesignByContractViolationException($"Unsupported {enumType} value: {enumName}");
         }
 
-        [ExcludeFromCodeCoverage]
-        private static void RequiresEnumValue([NotNull] Enum value)
-        {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-        }
+        //[ExcludeFromCodeCoverage]
+        //private static void RequiresEnumValue([NotNull] Enum value)
+        //{
+        //    if (value == null)
+        //        throw new ArgumentNullException(nameof(value));
+        //}
     }
 }

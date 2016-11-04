@@ -28,10 +28,10 @@ namespace Synergy.Contracts.Samples
         public List<Contractor> FilterContractors(ContractorFilterParameters paramaters)
         {
             paramaters.OrFail(nameof(paramaters));
-            paramaters.FoundedBetween.FailIfNull("'{0}' is null and it shouldn't be", nameof(paramaters.FoundedBetween));
-            paramaters.FoundedBetween.Max.OrFail(nameof(paramaters.FoundedBetween.Max));
+            paramaters.EstablishedBetween.FailIfNull("'{0}' is null and it shouldn't be", nameof(paramaters.EstablishedBetween));
+            paramaters.EstablishedBetween.Max.OrFail(nameof(paramaters.EstablishedBetween.Max));
 
-            if (paramaters.FoundedBetween == null)
+            if (paramaters.EstablishedBetween == null)
             {
             }
 
@@ -56,7 +56,7 @@ namespace Synergy.Contracts.Samples
     {
         [NotNull]
         // ReSharper disable once NotNullMemberIsNotInitialized
-        public DateRangeOpen FoundedBetween { get; set; }
+        public DateRangeOpen EstablishedBetween { get; set; }
     }
 
     public class DateRangeOpen

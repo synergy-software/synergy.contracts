@@ -53,7 +53,7 @@ namespace Synergy.Contracts.Test.Failures
         public void CastOrFail()
         {
             // ARRANGE
-            object somethingNotCastable = 1;
+            object somethingNotCastable = new object();
 
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(

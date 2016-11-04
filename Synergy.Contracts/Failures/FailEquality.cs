@@ -14,7 +14,7 @@ namespace Synergy.Contracts
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         [StringFormatMethod("message")]
         [AssertionMethod]
-        public static void IfEqual([CanBeNull] object unexpected, [CanBeNull] object actual, [NotNull] string message, [NotNull] params object[] args)
+        public static void IfEqual<TExpected, TActual>([CanBeNull] TExpected unexpected, [CanBeNull] TActual actual, [NotNull] string message, [NotNull] params object[] args)
         {
             Fail.RequiresMessage(message, args);
 
@@ -30,7 +30,7 @@ namespace Synergy.Contracts
         /// <param name="argumentValue">The argument value to be checked.</param>
         /// <param name="argumentName">Name of the argument passed to your method.</param>
         [AssertionMethod]
-        public static void IfArgumentEqual([CanBeNull] object unexpected, [CanBeNull] object argumentValue, [NotNull] string argumentName)
+        public static void IfArgumentEqual<TExpected, TActual>([CanBeNull] TExpected unexpected, [CanBeNull] TActual argumentValue, [NotNull] string argumentName)
         {
             Fail.RequiresArgumentName(argumentName);
 
@@ -50,7 +50,7 @@ namespace Synergy.Contracts
         /// <param name="args">Arguments that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
         [StringFormatMethod("message")]
         [AssertionMethod]
-        public static void IfNotEqual([CanBeNull] object expected, [CanBeNull] object actual, [NotNull] string message, [NotNull] params object[] args)
+        public static void IfNotEqual<TExpected, TActual>([CanBeNull] TExpected expected, [CanBeNull] TActual actual, [NotNull] string message, [NotNull] params object[] args)
         {
             Fail.RequiresMessage(message, args);
 

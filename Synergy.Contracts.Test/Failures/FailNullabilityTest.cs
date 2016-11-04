@@ -9,6 +9,7 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailNullabilityTest
     {
+
         #region variable.FailIfNull(nameof(variable))
 
         [Test]
@@ -81,7 +82,7 @@ namespace Synergy.Contracts.Test.Failures
 
             // ASSERT
             Assert.That(exception, Is.Not.Null);
-            Assert.That(exception.Message, Is.EqualTo("'FoundedBetween' is null and it shouldn't be"));
+            Assert.That(exception.Message, Is.EqualTo("'EstablishedBetween' is null and it shouldn't be"));
         }
 
         #endregion
@@ -141,9 +142,11 @@ namespace Synergy.Contracts.Test.Failures
         [ItemNotNull]
         private static IEnumerable<object> GetNotNulls()
         {
+            // ReSharper disable HeapView.BoxingAllocation
             yield return 123;
             yield return (long?)456;
             yield return new object();
+            // ReSharper restore HeapView.BoxingAllocation
         }
 
         #endregion
@@ -197,6 +200,16 @@ namespace Synergy.Contracts.Test.Failures
         {
             // ARRANGE
             object thisIsNotNull = "not null";
+
+            // ACT
+            Fail.IfNull(thisIsNotNull, "this is null and it shouldn't be");
+        }
+
+        [Test]
+        public void IfNullForNotNullableType()
+        {
+            // ARRANGE
+            long thisIsNotNull = 123;
 
             // ACT
             Fail.IfNull(thisIsNotNull, "this is null and it shouldn't be");

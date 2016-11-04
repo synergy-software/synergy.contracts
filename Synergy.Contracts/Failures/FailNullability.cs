@@ -70,8 +70,8 @@ namespace Synergy.Contracts
         /// <param name="argumentName">Name of the argument passed to your method.</param>
         [ContractAnnotation("argumentValue: null => halt")]
         [AssertionMethod]
-        public static void IfArgumentNull(
-            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] object argumentValue,
+        public static void IfArgumentNull<T>(
+            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T argumentValue,
             [NotNull] string argumentName)
         {
             Fail.RequiresArgumentName(argumentName);
@@ -102,8 +102,8 @@ namespace Synergy.Contracts
         [StringFormatMethod("message")]
         [ContractAnnotation("value: null => halt")]
         [AssertionMethod]
-        public static void IfNull(
-            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] object value,
+        public static void IfNull<T>(
+            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
             [NotNull] string message,
             [NotNull] params object[] args)
         {
@@ -122,7 +122,7 @@ namespace Synergy.Contracts
         [StringFormatMethod("message")]
         [ContractAnnotation("value: notnull => halt")]
         [AssertionMethod]
-        public static void IfNotNull([CanBeNull] object value, [NotNull] string message, [NotNull] params object[] args)
+        public static void IfNotNull<T>([CanBeNull] T value, [NotNull] string message, [NotNull] params object[] args)
         {
             Fail.RequiresMessage(message, args);
 
