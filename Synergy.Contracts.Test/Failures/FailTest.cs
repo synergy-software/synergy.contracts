@@ -23,11 +23,11 @@ namespace Synergy.Contracts.Test.Failures
         public void BecauseWith1Argument()
         {
             // ACT
-            DesignByContractViolationException exception = Fail.Because("Always {0}", "fails");
+            DesignByContractViolationException exception = Fail.Because("Always {0}", 1);
 
             // ASSERT
             Assert.That(exception, Is.Not.Null);
-            Assert.That(exception.Message, Is.EqualTo("Always fails"));
+            Assert.That(exception.Message, Is.EqualTo("Always 1"));
         }
 
         [Test]

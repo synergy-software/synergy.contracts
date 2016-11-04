@@ -63,6 +63,8 @@ namespace Synergy.Contracts
             return value;
         }
 
+        #region Fail.IfArgumentNull
+
         /// <summary>
         /// Throws exception when specified argument value is <see langword="null" />.
         /// </summary>
@@ -81,8 +83,9 @@ namespace Synergy.Contracts
         }
 
         /// <summary>
-        /// Template for expanding <c>Fail.IfArgumentNull(argument, nameof(argument));</c>
+        /// Template for expanding <c>Fail.IfArgumentNull(argument, nameof(argument));</c> using Resharper.
         /// Type <c>argument.fian</c> and press TAB and let Resharper complete the template.
+        /// Do NOT call the method directly.
         /// </summary>
         /// <param name="argumentValue">Value of the argument to check against being <see langword="null" />.</param>
         [SourceTemplate]
@@ -91,6 +94,82 @@ namespace Synergy.Contracts
         public static void fian([CanBeNull] this object argumentValue)
         {
             Fail.IfArgumentNull(argumentValue, nameof(argumentValue));
+        }
+
+        #endregion
+
+        #region Fail.IfNull
+
+        /// <summary>
+        /// Throws exception when specified value is <see langword="null" />.
+        /// </summary>
+        /// <param name="value">Value to check against being <see langword="null" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: null => halt")]
+        [AssertionMethod]
+        public static void IfNull<T>(
+            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
+            [NotNull] string message)
+        {
+            Fail.IfNull(value, message, Fail.nullArgs);
+        }
+
+        /// <summary>
+        /// Throws exception when specified value is <see langword="null" />.
+        /// </summary>
+        /// <param name="value">Value to check against being <see langword="null" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Meassege argument 1</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: null => halt")]
+        [AssertionMethod]
+        public static void IfNull<T, TArgument1>(
+            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1)
+        {
+            Fail.IfNull(value, message, new object[] { arg1 });
+        }
+
+        /// <summary>
+        /// Throws exception when specified value is <see langword="null" />.
+        /// </summary>
+        /// <param name="value">Value to check against being <see langword="null" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Meassege argument 1</param>
+        /// <param name="arg2">Meassege argument 1</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: null => halt")]
+        [AssertionMethod]
+        public static void IfNull<T, TArgument1, TArgument2>(
+            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1,
+            [CanBeNull] TArgument2 arg2 )
+        {
+            Fail.IfNull(value, message, new object[] { arg1, arg2 });
+        }
+
+        /// <summary>
+        /// Throws exception when specified value is <see langword="null" />.
+        /// </summary>
+        /// <param name="value">Value to check against being <see langword="null" />.</param>
+        /// <param name="message">Message that will be passed to <see cref="DesignByContractViolationException"/> when the check fails.</param>
+        /// <param name="arg1">Meassege argument 1</param>
+        /// <param name="arg2">Meassege argument 1</param>
+        /// <param name="arg3">Meassege argument 1</param>
+        [StringFormatMethod("message")]
+        [ContractAnnotation("value: null => halt")]
+        [AssertionMethod]
+        public static void IfNull<T, TArgument1, TArgument2, TArgument3>(
+            [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
+            [NotNull] string message,
+            [CanBeNull] TArgument1 arg1,
+            [CanBeNull] TArgument2 arg2,
+            [CanBeNull] TArgument3 arg3)
+        {
+            Fail.IfNull(value, message, new object[] {arg1, arg2, arg3});
         }
 
         /// <summary>
@@ -105,13 +184,15 @@ namespace Synergy.Contracts
         public static void IfNull<T>(
             [CanBeNull] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T value,
             [NotNull] string message,
-            [NotNull] params object[] args)
+            [CanBeNull] params object[] args)
         {
-            Fail.RequiresMessage(message, args);
+            Fail.RequiresMessage(message);
 
             if (value == null)
                 throw Fail.Because(message, args);
         }
+
+        #endregion
 
         /// <summary>
         /// Throws exception when specified value is NOT <see langword="null" />.

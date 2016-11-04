@@ -9,7 +9,6 @@ namespace Synergy.Contracts.Test.Failures
     [TestFixture]
     public class FailNullabilityTest
     {
-
         #region variable.FailIfNull(nameof(variable))
 
         [Test]
@@ -24,8 +23,8 @@ namespace Synergy.Contracts.Test.Failures
                 () => someNullObject.FailIfNull("'{0}' is null and it shouldn't be", nameof(someNullObject))
             );
 
-           // ASSERT
-           Assert.That(exception.Message, Is.EqualTo("'someNullObject' is null and it shouldn't be"));
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("'someNullObject' is null and it shouldn't be"));
         }
 
         [Test]
@@ -144,7 +143,7 @@ namespace Synergy.Contracts.Test.Failures
         {
             // ReSharper disable HeapView.BoxingAllocation
             yield return 123;
-            yield return (long?)456;
+            yield return (long?) 456;
             yield return new object();
             // ReSharper restore HeapView.BoxingAllocation
         }
@@ -179,20 +178,84 @@ namespace Synergy.Contracts.Test.Failures
         #region Fail.IfNull
 
         [Test]
-        public void IfNull()
+        public void IfNullWith0Arguments()
         {
             // ARRANGE
             object thisIsNull = null;
 
             // ACT
-           var exception = Assert.Throws<DesignByContractViolationException>(
-               // ReSharper disable once ExpressionIsAlwaysNull
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
                 () => Fail.IfNull(thisIsNull, "this is null and it shouldn't be")
             );
 
-
             // ASSERT
             Assert.That(exception.Message, Is.EqualTo("this is null and it shouldn't be"));
+        }
+
+        [Test]
+        public void IfNullWith1Arguments()
+        {
+            // ARRANGE
+            object thisIsNull = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                () => Fail.IfNull(thisIsNull, "this is null and it shouldn't be {0}", 1)
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this is null and it shouldn't be 1"));
+        }
+
+        [Test]
+        public void IfNullWith2Arguments()
+        {
+            // ARRANGE
+            object thisIsNull = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                () => Fail.IfNull(thisIsNull, "this is null and it shouldn't be {0} {1}", 1, "never")
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this is null and it shouldn't be 1 never"));
+        }
+
+        [Test]
+        public void IfNullWith3Arguments()
+        {
+            // ARRANGE
+            object thisIsNull = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                () => Fail.IfNull(thisIsNull, "this is null and it shouldn't be {0} {1} {2}", 1, "never", "maybe")
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this is null and it shouldn't be 1 never maybe"));
+        }
+
+        [Test]
+        public void IfNullWithNArguments()
+        {
+            // ARRANGE
+            object thisIsNull = null;
+
+            // ACT
+            var exception = Assert.Throws<DesignByContractViolationException>(
+                // ReSharper disable once ExpressionIsAlwaysNull
+                // ReSharper disable once HeapView.BoxingAllocation
+                () => Fail.IfNull(thisIsNull, "this is null and it shouldn't be {0} {1} {2} {3}", 1, "never", "maybe", "wow")
+            );
+
+            // ASSERT
+            Assert.That(exception.Message, Is.EqualTo("this is null and it shouldn't be 1 never maybe wow"));
         }
 
         [Test]

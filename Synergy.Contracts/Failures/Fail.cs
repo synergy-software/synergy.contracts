@@ -33,6 +33,8 @@ namespace Synergy.Contracts
     [DebuggerStepThrough]
     public static partial class Fail
     {
+        private const object[] nullArgs = null;
+
         /// <summary>
         ///     Returns exception that can be thrown when contract is failed.
         /// </summary>
@@ -50,7 +52,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because([NotNull] string message)
         {
-            return Fail.Because<object, object, object>(message, null, null, null);
+            return Fail.Because(message, Fail.nullArgs);
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because<T1>([NotNull] string message, T1 arg1)
         {
-            return Fail.Because<T1, object, object>(message, arg1, null, null);
+            return Fail.Because(message, new object[] {arg1});
         }
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because<T1, T2>([NotNull] string message, T1 arg1, T2 arg2)
         {
-            return Fail.Because<T1, T2, object>(message, arg1, arg2, null);
+            return Fail.Because(message, new object[] {arg1, arg2});
         }
 
         /// <summary>
@@ -110,9 +112,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because<T1, T2, T3>([NotNull] string message, T1 arg1, T2 arg2, T3 arg3)
         {
-            Fail.RequiresMessage(message);
-
-            return new DesignByContractViolationException(string.Format(message, arg1, arg2, arg3));
+            return Fail.Because(message, new object[] {arg1, arg2, arg3});
         }
 
         /// <summary>
@@ -132,11 +132,20 @@ namespace Synergy.Contracts
         [StringFormatMethod("message")]
         [NotNull]
         [Pure]
-        public static DesignByContractViolationException Because([NotNull] string message, [NotNull] params object[] args)
+        public static DesignByContractViolationException Because([NotNull] string message, [CanBeNull] params object[] args)
         {
-            Fail.RequiresMessage(message, args);
+            Fail.RequiresMessage(message);
 
-            return new DesignByContractViolationException(string.Format(message, args));
+            string formattedMessage = Fail.FormatMessage(message, args);
+            return new DesignByContractViolationException(formattedMessage);
+        }
+
+        private static string FormatMessage(string message, [CanBeNull] object[] args)
+        {
+            string formattedMessage = message;
+            if (args != null)
+                formattedMessage = string.Format(message, args);
+            return formattedMessage;
         }
 
         [ExcludeFromCodeCoverage]
