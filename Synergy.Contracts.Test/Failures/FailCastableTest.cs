@@ -53,7 +53,8 @@ namespace Synergy.Contracts.Test.Failures
         public void CastOrFail()
         {
             // ARRANGE
-            object somethingNotCastable = new object();
+            // ReSharper disable once HeapView.BoxingAllocation
+            object somethingNotCastable = 1;
 
             // ACT
             var exception = Assert.Throws<DesignByContractViolationException>(

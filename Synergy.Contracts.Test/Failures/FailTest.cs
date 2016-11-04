@@ -9,7 +9,7 @@ namespace Synergy.Contracts.Test.Failures
         #region Fail.Because
 
         [Test]
-        public void Because()
+        public void BecauseWith0Arguments()
         {
             // ACT
             DesignByContractViolationException exception = Fail.Because("Always");
@@ -17,6 +17,51 @@ namespace Synergy.Contracts.Test.Failures
             // ASSERT
             Assert.That(exception, Is.Not.Null);
             Assert.That(exception.Message, Is.EqualTo("Always"));
+        }
+
+        [Test]
+        public void BecauseWith1Argument()
+        {
+            // ACT
+            DesignByContractViolationException exception = Fail.Because("Always {0}", "fails");
+
+            // ASSERT
+            Assert.That(exception, Is.Not.Null);
+            Assert.That(exception.Message, Is.EqualTo("Always fails"));
+        }
+
+        [Test]
+        public void BecauseWith2Arguments()
+        {
+            // ACT
+            DesignByContractViolationException exception = Fail.Because("Always {0} {1}", "fails", 1);
+
+            // ASSERT
+            Assert.That(exception, Is.Not.Null);
+            Assert.That(exception.Message, Is.EqualTo("Always fails 1"));
+        }
+
+        [Test]
+        public void BecauseWith3Arguments()
+        {
+            // ACT
+            DesignByContractViolationException exception = Fail.Because("Always {0} {1} {2}", "fails", 1, "times");
+
+            // ASSERT
+            Assert.That(exception, Is.Not.Null);
+            Assert.That(exception.Message, Is.EqualTo("Always fails 1 times"));
+        }
+
+        [Test]
+        public void BecauseWithNArguments()
+        {
+            // ACT
+            // ReSharper disable once HeapView.BoxingAllocation
+            DesignByContractViolationException exception = Fail.Because("Always {0} {1} {2} {3}", "fails", 1, "times", "frequently");
+
+            // ASSERT
+            Assert.That(exception, Is.Not.Null);
+            Assert.That(exception.Message, Is.EqualTo("Always fails 1 times frequently"));
         }
 
         [Test]
