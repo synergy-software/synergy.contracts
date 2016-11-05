@@ -57,6 +57,7 @@
     <Compile Include="Failures\FailEquality.cs" />
     <Compile Include="Failures\FailGuid.cs" />
     <Compile Include="Failures\FailNullability.cs" />
+    <Compile Include="Pooling\Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
