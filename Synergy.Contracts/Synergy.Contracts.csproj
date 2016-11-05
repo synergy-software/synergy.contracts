@@ -46,6 +46,7 @@
     <Compile Include="..\SynergyAssemblyInfo.cs">
       <Link>Properties\SynergyAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Extensions\StringFormatExtensions.cs" />
     <Compile Include="Failures\DesignByContractViolationException.cs" />
     <Compile Include="Failures\Fail.cs" />
     <Compile Include="Failures\FailEnum.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="Failures\FailGuid.cs" />
     <Compile Include="Failures\FailNullability.cs" />
     <Compile Include="Pooling\Pool.cs" />
-    <Compile Include="Pooling\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
