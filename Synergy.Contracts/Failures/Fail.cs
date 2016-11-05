@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using Synergy.Contracts.Pooling;
+using Synergy.Extensions;
 
 namespace Synergy.Contracts
 {
@@ -34,23 +34,6 @@ namespace Synergy.Contracts
     [DebuggerStepThrough]
     public static partial class Fail
     {
-        private static readonly Action<object[]> clearArray = array => Array.Clear(array, 0, array.Length);
-
-        private static readonly Pool<object[]> poolOf1ElementArrays = new Pool<object[]>(
-            constructor: () => new object[1],
-            initialSize: 300,
-            destructor: Fail.clearArray);
-
-        private static readonly Pool<object[]> poolOf2ElementArrays = new Pool<object[]>(
-            constructor: () => new object[2],
-            initialSize: 200,
-            destructor: Fail.clearArray);
-
-        private static readonly Pool<object[]> poolOf3ElementArrays = new Pool<object[]>(
-            constructor: () => new object[3],
-            initialSize: 100,
-            destructor: Fail.clearArray);
-
         /// <summary>
         ///     Returns exception that can be thrown when contract is failed.
         /// </summary>
@@ -90,11 +73,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because<T1>([NotNull] string message, T1 arg1)
         {
-            using (Pooled<object[]> args = Fail.poolOf1ElementArrays.Get())
-            {
-                args.Value[0] = arg1;
-                return Fail.Because(message, args.Value);
-            }
+            return Fail.Because(message.Format(arg1));
         }
 
         /// <summary>
@@ -114,12 +93,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because<T1, T2>([NotNull] string message, T1 arg1, T2 arg2)
         {
-            using (Pooled<object[]> args = Fail.poolOf2ElementArrays.Get())
-            {
-                args.Value[0] = arg1;
-                args.Value[1] = arg2;
-                return Fail.Because(message, args.Value);
-            }
+            return Fail.Because(message.Format(arg1, arg2));
         }
 
         /// <summary>
@@ -139,13 +113,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because<T1, T2, T3>([NotNull] string message, T1 arg1, T2 arg2, T3 arg3)
         {
-            using (Pooled<object[]> args = Fail.poolOf3ElementArrays.Get())
-            {
-                args.Value[0] = arg1;
-                args.Value[1] = arg2;
-                args.Value[2] = arg3;
-                return Fail.Because(message, args.Value);
-            }
+            return Fail.Because(message.Format(arg1, arg2, arg3));
         }
 
         /// <summary>
@@ -167,10 +135,7 @@ namespace Synergy.Contracts
         [Pure]
         public static DesignByContractViolationException Because([NotNull] string message, [NotNull] params object[] args)
         {
-            Fail.RequiresMessage(message);
-
-            string formattedMessage = string.Format(message, args);
-            return new DesignByContractViolationException(formattedMessage);
+            return Fail.Because(message.Format(args));
         }
 
         [ExcludeFromCodeCoverage]

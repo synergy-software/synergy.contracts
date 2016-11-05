@@ -2,26 +2,37 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Synergy.Contracts.Pooling
+// ReSharper disable once CheckNamespace
+namespace Synergy.Pooling
 {
     /// <summary>
     /// Object pool for reusing objects to prevent memory fragmentation.
     /// </summary>
     /// <typeparam name="TPooled">Type of the object to be pooled</typeparam>
-    internal class Pool<TPooled>
+#if INTERNAL_POOL
+    internal
+#else
+    public
+#endif
+    class Pool<TPooled>
     {
-        [NotNull] 
-        public readonly Func<TPooled> Constructor;
+        [NotNull]
+        internal readonly Func<TPooled> Constructor;
 
-        [CanBeNull] 
-        public readonly Action<TPooled> Destructor;
-        private readonly Stack<Pooled<TPooled>> items = new Stack<Pooled<TPooled>>();
+        [CanBeNull]
+        internal readonly Action<TPooled> Destructor;
+
+        [NotNull] 
+        private readonly Stack<Pooled<TPooled>> items;
+
+        [NotNull] 
         private readonly object syncRoot = new object();
 
         public Pool([NotNull] Func<TPooled> constructor, int initialSize = 1, [CanBeNull] Action<TPooled> destructor = null)
         {
             this.Constructor = constructor;
             this.Destructor = destructor;
+            this.items = new Stack<Pooled<TPooled>>(initialSize);
             for (var i = 0; i < initialSize; i++)
             {
                 var pooled = new Pooled<TPooled>(this);
@@ -29,6 +40,9 @@ namespace Synergy.Contracts.Pooling
             }
         }
 
+        /// <summary>
+        /// Gets the object from the pool.
+        /// </summary>
         public Pooled<TPooled> Get()
         {
             lock (this.syncRoot)
@@ -52,7 +66,12 @@ namespace Synergy.Contracts.Pooling
         }
     }
 
-    internal class Pooled<TPooled> : IDisposable
+#if INTERNAL_POOL
+    internal
+#else
+    public
+#endif
+    class Pooled<TPooled> : IDisposable
     {
         public TPooled Value { get; }
         private readonly Pool<TPooled> pool;
