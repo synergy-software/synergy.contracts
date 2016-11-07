@@ -26,28 +26,29 @@ namespace Synergy.Extensions
 
         private static readonly Pool<object[]> poolOf1ElementArrays = new Pool<object[]>(
             constructor: () => new object[1],
-            initialSize: 200,
+            initialSize: 16,
             destructor: StringFormatExtensions.clearArray);
 
         private static readonly Pool<object[]> poolOf2ElementArrays = new Pool<object[]>(
             constructor: () => new object[2],
-            initialSize: 100,
+            initialSize: 16,
             destructor: StringFormatExtensions.clearArray);
 
         private static readonly Pool<object[]> poolOf3ElementArrays = new Pool<object[]>(
             constructor: () => new object[3],
-            initialSize: 50,
+            initialSize: 16,
             destructor: StringFormatExtensions.clearArray);
 
         private static readonly Pool<object[]> poolOf4ElementArrays = new Pool<object[]>(
             constructor: () => new object[4],
-            initialSize: 25,
+            initialSize: 16,
             destructor: StringFormatExtensions.clearArray);
 
         /// <summary>
         /// Formats the specified string using {0} annottations.
         /// </summary>
         [NotNull]
+        [StringFormatMethod("format")]
         public static string Format(
             [NotNull] this string format,
             [CanBeNull] object arg1)
@@ -63,6 +64,7 @@ namespace Synergy.Extensions
         /// Formats the specified string using {0}, {1} annottations.
         /// </summary>
         [NotNull]
+        [StringFormatMethod("format")]
         public static string Format(
             [NotNull] this string format,
             [CanBeNull] object arg1,
@@ -80,6 +82,7 @@ namespace Synergy.Extensions
         /// Formats the specified string using {0}, {1}, {2} annottations.
         /// </summary>
         [NotNull]
+        [StringFormatMethod("format")]
         public static string Format(
             [NotNull] this string format,
             [CanBeNull] object arg1,
@@ -99,6 +102,8 @@ namespace Synergy.Extensions
         /// Formats the specified string using {0}, {1}, {2}, {3} annottations.
         /// </summary>
         [NotNull]
+        [StringFormatMethod("format")]
+
         public static string Format(
             [NotNull] this string format,
             [CanBeNull] object arg1,
@@ -120,6 +125,7 @@ namespace Synergy.Extensions
         /// Formats the specified string using {0}, {1}, {2}, {3}, ... annottations.
         /// </summary>
         [NotNull]
+        [StringFormatMethod("format")]
         public static string Format(
             [NotNull] this string format,
             [NotNull] params object[] args)
