@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/3bem2a7rwf2nai26?svg=true)](https://ci.appveyor.com/project/MarcinCelej/synergy-contracts)
 
-View the [Code Topolgy](http://htmlpreview.github.io/?https://github.com/synergy-software/synergy.contracts/blob/master/CodeTopologyReport.html)
+View the [Code Topology](http://htmlpreview.github.io/?https://github.com/synergy-software/synergy.contracts/blob/master/CodeTopologyReport.html)
 
 [Download from nuget](https://www.nuget.org/packages/Synergy.Contracts/)
 
