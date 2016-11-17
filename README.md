@@ -1,8 +1,6 @@
 # synergy.contracts - a programming by contract C# library
 
-[![Build status](https://ci.appveyor.com/api/projects/status/3bem2a7rwf2nai26?svg=true)](https://ci.appveyor.com/project/MarcinCelej/synergy-contracts)
-
-View the [Code Topology](http://htmlpreview.github.io/?https://github.com/synergy-software/synergy.contracts/blob/master/CodeTopologyReport.html)
+[![Build status](https://ci.appveyor.com/api/projects/status/l8wlmu8i0cjfcgo8?svg=true)](https://ci.appveyor.com/project/MarcinCelej/synergy-framework)
 
 [Download from nuget](https://www.nuget.org/packages/Synergy.Contracts/)
 
