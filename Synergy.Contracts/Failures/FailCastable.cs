@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using Synergy.Contracts.Extensions;
 
 namespace Synergy.Contracts
 {
