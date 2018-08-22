@@ -1,3 +1,5 @@
+PROJECT DEPRECIATED - MOVED TO https://github.com/synergy-software/synergy.framework
+
 # synergy.contracts - a programming by contract C# library
 
 [![Build status](https://ci.appveyor.com/api/projects/status/l8wlmu8i0cjfcgo8?svg=true)](https://ci.appveyor.com/project/MarcinCelej/synergy-framework)
